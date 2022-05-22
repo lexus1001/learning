@@ -41,7 +41,7 @@ public class Creds {
     }
 
     public int passwordLenght () {
-        System.out.println("Password lenght = " + password.length());
+        System.out.println(this.login + " password lenght = " + password.length());
         return password1;
     }
 
