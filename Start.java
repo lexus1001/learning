@@ -1,28 +1,28 @@
-import java.util.Scanner;
-
 public class Start {
-
     public static void main(String[] args) {
-        Rabota uTest = new Rabota("uTest", 0, 12100,true,false,"I don't know");
-        Rabota SimbirSoft = new Rabota ("SimbirSoft",1,48000,false,false,"Fine!");
-        Rabota NeoTech_Development = new Rabota ("NeoTech Development",2,100000,true,true, "Good");
 
-        Scanner Rab = new Scanner(System.in);
-        System.out.print("Please enter work number\n " );
 
-        int n = Rab.nextInt();
-        if (n==1)
-       {
-        SimbirSoft.Res();
+    Creds lexus100 = new Creds();
+    SimpleCreds Alex = new SimpleCreds("Alex", 12345, true);
+    FullCreds Nikolya = new FullCreds(1,"Nikol", "333333", false);
+
+
+        System.out.println(Alex.getLogin()+ "  " + Alex.getPassword());
+        Alex.ent();
+        try {
+            Alex.passwordLenght();
         }
-        else if (n==2){
-            NeoTech_Development.Res();
+        catch (Exception exeep){
+            exeep.printStackTrace();
         }
-        else if (n==0) {
-            uTest.Res();
-        }
-        else
-        System.out.println("No information");
+        System.out.println("noun");
+        Alex.isSimpleCreds();
+        Nikolya.passwordLenght();
+        Nikolya.getLogin();
+        lexus100.getLogin();
+        //lexus100.passwordLenght();
+        System.out.println(Nikolya.getLogin() + "  " + Nikolya.getPassword());
+
     }
 
 }
