@@ -8,9 +8,6 @@ public class Creds {
 
 
 
-   //public Creds(int number, String login, String password, boolean banned) {}
-//    public Creds(int number, String login, int password, boolean banned) {}
-
     public String getLogin() {
         return login;
     }

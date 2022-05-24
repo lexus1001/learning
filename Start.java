@@ -1,10 +1,13 @@
+import java.util.Scanner;
+
 public class Start {
     public static void main(String[] args) {
 
-
-        Creds lexus100 = new Creds();
+        DB PosgreSQL = new DB();
+        API REST = new API();
+        SimpleCreds lexus100 = new SimpleCreds(1);
         SimpleCreds Alex = new SimpleCreds("Alex", 12345, true);
-        FullCreds Nikolya = new FullCreds(1, "Nikol", "3333buiyvytui33", false);
+        FullCreds Nikolya = new FullCreds(3, "Nikol", "3333buiyvytui33", false);
 
 
         System.out.println(Alex.getLogin() + "  " + Alex.getPassword());
@@ -32,6 +35,36 @@ public class Start {
         lexus100.getLogin();
         //lexus100.passwordLenght();
         System.out.println(Nikolya.getLogin() + "  " + Nikolya.getPassword());
+
+        REST.read();
+        REST.listen();
+        PosgreSQL.read();
+
+         Interface Tool = PosgreSQL;
+
+        String u;
+         System.out.println("Please enter login: ");
+        Scanner User = new Scanner(System.in);
+        u = User.nextLine();
+
+        switch (u) {
+            case "lexus100" :
+                System.out.println("num: ");
+                lexus100.getNumber();
+                break;
+            case "Alex" :
+                Alex.ent();
+                break;
+            case "Nikol":
+                Nikolya.passwordLenght();
+                break;
+            default:
+                System.out.println("No info");
+        }
+
+
+
+
 
     }
 

@@ -1,8 +1,11 @@
 public class SimpleCreds extends Creds {
 
-    public SimpleCreds(String login, int pwd, boolean thisIsSimpleCreds) {
-        setLogin(login);
-        setPassword(pwd);
+    public SimpleCreds (int number) {
+
+    }
+    public SimpleCreds (String login, int pwd, boolean thisIsSimpleCreds) {
+        setLogin (login);
+        setPassword (pwd);
     }
 
     public int passwordLenght() {
@@ -16,7 +19,7 @@ public class SimpleCreds extends Creds {
     }
 
     void ent() {
-        System.out.println(getLogin());
+        System.out.println(getLogin()+ " : " + getPassword());
     }
 
         void isSimpleCreds() {
