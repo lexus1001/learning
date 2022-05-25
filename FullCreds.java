@@ -6,12 +6,7 @@ public class FullCreds extends Creds {
         setPassword(password);
         setNumber(number);
     }
-    
-//    public void allCreds () {
-//
-//        for (int n = 0; n < nu; n++) {
-//
-//        }
+
     }
 
 

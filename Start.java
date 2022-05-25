@@ -8,6 +8,7 @@ public class Start {
         SimpleCreds lexus100 = new SimpleCreds(1);
         SimpleCreds Alex = new SimpleCreds("Alex", 12345, true);
         FullCreds Nikolya = new FullCreds(3, "Nikol", "3333buiyvytui33", false);
+        FullCreds Marta = new FullCreds(4, "Marta", "qwety", true);
 
 
         System.out.println(Alex.getLogin() + "  " + Alex.getPassword());
@@ -58,13 +59,12 @@ public class Start {
             case "Nikol":
                 Nikolya.passwordLenght();
                 break;
+            case "Mara" :
+                Marta.getLogin();
+                Marta.getPassword();
             default:
                 System.out.println("No info");
         }
-
-
-
-
 
     }
 

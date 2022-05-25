@@ -29,7 +29,7 @@ public class Creds {
         this.password1 = password;
     }
 
-    public int getNumber(){
+    public Integer getNumber(){
         return number;
     }
 
