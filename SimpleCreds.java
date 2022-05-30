@@ -1,12 +1,16 @@
 public class SimpleCreds extends Creds {
 
+    private String login;
+
     public SimpleCreds (int number) {
 
     }
     public SimpleCreds (String login, int pwd, boolean thisIsSimpleCreds) {
         setLogin (login);
-        setPassword (pwd);
+        setPassword (String.valueOf(pwd));
     }
+
+
 
     public int passwordLenght() {
         int passlnght = super.passwordLenght();
@@ -15,7 +19,7 @@ public class SimpleCreds extends Creds {
 
     public String getPassword() {
         String simplePass = super.getPassword();
-        return "This is pwd "+ simplePass;
+        return "Pass: " + simplePass;
     }
 
     void ent() {

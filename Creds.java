@@ -3,12 +3,13 @@ public class Creds {
         private int number;
        private String login;
        private String password;
-       private int password1;
+       private int pwdlnght;
        private boolean banned;
 
 
 
     public String getLogin() {
+        System.out.println("Имя: " + login);
         return login;
     }
 
@@ -17,6 +18,7 @@ public class Creds {
     }
 
     public String getPassword() {
+        System.out.println("Пароль: " + password);
         return password;
     }
 
@@ -25,11 +27,13 @@ public class Creds {
         this.password = password;
     }
 
-    public void setPassword(int password) {
-        this.password1 = password;
-    }
+//    public void setPassword(int password1) {
+//        this.password1 = password1;
+//    }
+
 
     public Integer getNumber(){
+        System.out.println(number);
         return number;
     }
 
@@ -39,7 +43,7 @@ public class Creds {
 
     public int passwordLenght () {
         System.out.println(this.login + " password lenght = " + password.length());
-        return password1;
+        return pwdlnght;
     }
 
 
