@@ -17,6 +17,7 @@ public class SimpleCreds extends Creds {
 
     void ent() {
         System.out.println(getLogin());
+        isSimpleCreds();
     }
 
         void isSimpleCreds() {
