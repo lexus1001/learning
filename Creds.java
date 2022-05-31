@@ -4,8 +4,16 @@ public class Creds {
        private String login;
        private String password;
        private int pwdlnght;
+       private int existNum;
        private boolean banned;
 
+    public Creds (boolean thisisSimpleCreds) {
+
+    }
+
+    public  Creds () {
+
+    }
 
 
     public String getLogin() {
@@ -27,13 +35,9 @@ public class Creds {
         this.password = password;
     }
 
-//    public void setPassword(int password1) {
-//        this.password1 = password1;
-//    }
 
-
-    public Integer getNumber(){
-        System.out.println(number);
+    public int getNumber(){
+        System.out.println("Number: " + number);
         return number;
     }
 
@@ -41,10 +45,17 @@ public class Creds {
         number= this.number;
     }
 
+    public void Num () {
+        System.out.println(this.number);
+        //return existNum;
+    }
+
     public int passwordLenght () {
         System.out.println(this.login + " password lenght = " + password.length());
         return pwdlnght;
     }
 
-
+    void ent() {
+        System.out.println(getLogin()+ " : " + getPassword());
+    }
 }

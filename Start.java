@@ -7,11 +7,12 @@ public class Start {
        // DB PosgreSQL = new DB();
         // API REST = new API();
 
-        String logins[] = {"lexus100", "Alex", "Nikolya", "Marta"};
+        String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Vera"};
         SimpleCreds lexus100 = new SimpleCreds(1);
         SimpleCreds Alex = new SimpleCreds(logins[1], 12345, true);
         FullCreds Nikolya = new FullCreds(3, logins[2], "3333buiyvytui33", false);
         FullCreds Marta = new FullCreds(4, logins[3], "qwety", true);
+        Creds Vera = new Creds(false);
 
         int i=0;
         for (String logeens : logins) {
@@ -19,7 +20,8 @@ public class Start {
             i++;
         }
 
-        //Alex.ent();
+
+        Alex.ent();
 //        try {
 //            Alex.passwordLenght();
 //        } catch (Exception exeep) {
@@ -57,19 +59,22 @@ public class Start {
 
         switch (u) {
             case "lexus100" :
+                //lexus100.passwordLenght();
                 System.out.print("num: ");
                 lexus100.getNumber();
+                lexus100.Num();
                 break;
             case "Alex" :
-                Alex.isSimpleCreds();
                 Alex.passwordLenght();
                 break;
             case "Nikol":
                 Nikolya.passwordLenght();
+                Nikolya.getNumber();
                 break;
             case "Mara" :
                 Marta.getLogin ();
                 Marta.passwordLenght();
+                Marta.getNumber();
                 break;
             default:
                 System.out.println("No info");

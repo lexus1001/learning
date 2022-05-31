@@ -10,8 +10,6 @@ public class SimpleCreds extends Creds {
         setPassword (String.valueOf(pwd));
     }
 
-
-
     public int passwordLenght() {
         int passlnght = super.passwordLenght();
         return passlnght;
@@ -20,10 +18,6 @@ public class SimpleCreds extends Creds {
     public String getPassword() {
         String simplePass = super.getPassword();
         return "Pass: " + simplePass;
-    }
-
-    void ent() {
-        System.out.println(getLogin()+ " : " + getPassword());
     }
 
         void isSimpleCreds() {
