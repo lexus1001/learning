@@ -20,7 +20,6 @@ public class Start {
             i++;
         }
 
-
         Alex.ent();
 //        try {
 //            Alex.passwordLenght();
@@ -35,7 +34,7 @@ public class Start {
 //        System.out.println("Невозможно посчитать длину пароля у пользователя " + Alex.getLogin());
         try {
             int x = Nikolya.getPassword().length();
-            if (x > 13) {
+            if (x < 13) {
                 throw new Exception("Too long password");
             }
         }
@@ -75,6 +74,18 @@ public class Start {
                 Marta.getLogin ();
                 Marta.passwordLenght();
                 Marta.getNumber();
+                break;
+            case "Vera" :
+                try {
+                    //Vera.passwordLenght();
+                    if (Vera.getLogin() == null)
+                    {
+                        throw new Exception ("No info about Vera");
+                    }
+                }
+               catch (Exception exep2) {
+                   exep2.printStackTrace();
+               }
                 break;
             default:
                 System.out.println("No info");
