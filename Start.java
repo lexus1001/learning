@@ -9,25 +9,29 @@ public class Start {
 
         public static void main(String[] args) {
 
+            boolean ban;
+
+
 
             Local ua = new Local();
             Local ru = new Local();
-                ua.code = 330;
-                ua.country = "Ukraine";
-                ru.code = 7;
-                ru.country = "Russia";
+            Local ee = new Local();
+                ua.setLocal(331,"Ukraine");
+                ru.setLocal(7,"Russia");
+                ee.setLocal(05, "");
+
 
 //             DB PosgreSQL = new DB();
 //             API REST = new API();
 
-            String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Vera"};
-            SimpleCreds lexus100 = new SimpleCreds(2);
+            String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Zina","Ira"};
+            Creds Denis = new Creds();
+            SimpleCreds lexus100 = new SimpleCreds (2);
             SimpleCreds Alex = new SimpleCreds(logins[1], 12345, true);
             FullCreds Nikolya = new FullCreds(3, logins[2], "3333buiyvytui33", false);
             FullCreds Marta = new FullCreds(4, logins[3], "qwety7", true);
-            Creds Vera = new Creds(false);
-            //FullCreds Ira = new FullCreds(Marta.fullName);
-
+            Creds Zina = new Creds(false);
+            MegaFullCreds Ira = new MegaFullCreds(5,logins[5],"", false,false );
 
             int i = 0;
             System.out.println("All users list: ");
@@ -35,8 +39,7 @@ public class Start {
                 System.out.print(logins[i] + "; ");
                 i++;
             }
-
-            Alex.ent();
+            System.out.println();
 //        try {
 //            Alex.passwordLenght();
 //        } catch (Exception exeep) {
@@ -84,18 +87,13 @@ public class Start {
 
             switch (u) {
                 case "lexus100":
-                    int nmbl100 = lexus100.Numm();
-                    //lexus100.passwordLenght();
-                    System.out.print("num: ");
-                    System.out.println(nmbl100);
-                    //lexus100.getNumber();
+                    lexus100.DisplayNumber();
                     System.out.println(l);
                     ru.loc();
                     int lxsmin = ru.calcu();
                     System.out.println("minus: " + lxsmin);
                     break;
                 case "Alex":
-                    int nmbAl = Alex.Numm();
                     Alex.passwordLenght();
                     System.out.println(al);
                     ua.loc();
@@ -103,30 +101,35 @@ public class Start {
                     System.out.println(Almin);
                     break;
                 case "Nikol":
-                    //int nmbNiko = Nikolya.Numm();
+                    Nikolya.DisplayNumber();
                     Nikolya.passwordLenght();
-                    Nikolya.getNumber();
-                    //System.out.println(nmbNiko);
-                    System.out.println(ua.country);
                     System.out.println(n);
+                    ee.loc();
+                    Nikolya.isBanned();
                     break;
                 case "Mara":
                     Marta.getLogin();
+                    Marta.DisplayNumber();
                     Marta.passwordLenght();
-                    Marta.getNumber();
                     System.out.println(m);
                     ru.loc();
+                    Marta.isBanned();
                     break;
-                case "Vera":
+                case "Zina":
                     try {
                         //Vera.passwordLenght();
-                        if (Vera.getLogin() == null) {
-                            throw new Exception("No info about Vera");
+                        if (Zina.getLogin() == null) {
+                            throw new Exception("No info about Zina");
                         }
                     } catch (Exception exep2) {
                         exep2.printStackTrace();
                     }
                     ru.loc();
+                    break;
+                case "Ira" :
+                    Ira.ent();
+                    Ira.isBanned();
+                    Ira.passwordLenght();
                     break;
                 default:
                     System.out.println("No info");
@@ -135,15 +138,38 @@ public class Start {
         }
     }
 class Local {
-    String country;
-    int code;
+    private String country;
+    private int code;
+
+    public Local () {
+        setLocal(code,country);
+    }
 
     int calcu() {
         int minus = 25 + code;
         return minus;
     }
+    void setLocal(int ccode, String ccountry) {
+            code = ccode;
+            country = ccountry;
+    }
+
+    public Object getCode() {
+        return code;
+    }
+    public String getCountry() {
+        return country;
+    }
+
     void loc() {
-        System.out.println(this.country + " (telephone code: +" + this.code + ")");
+        if ((country=="Russia"| country == "Ukraine") & code>=7 ){
+            System.out.println(this.getCountry() + " (telephone code: +" + this.getCode() + ")");
+        }
+        else if (country.isEmpty()) {
+            System.out.println("Country name needed");
+        }
+        else
+            System.out.println("Local " + getCountry() + " is permitted");
     }
 }
 

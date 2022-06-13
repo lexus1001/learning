@@ -1,59 +1,49 @@
 public class Creds {
 
         private int number;
-       private String login;
-       private String password;
+       protected String login;
+       protected String password;
        private int pwdlnght;
-       private int existNum;
-
-    public Creds (boolean thisisSimpleCreds) {}
 
 
+    public Creds (boolean thisisSimpleCreds) {};
+    public Creds (int number) {
+        setNumber(number);
+    }
     public Creds () {}
-
 
     public String getLogin() {
         System.out.println("Имя: " + login);
         return login;
     }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setLogin(String llogin) {
+        this.login = llogin;
     }
 
     public String getPassword() {
-        System.out.println("Пароль: " + password);
         return password;
     }
 
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String ppassword) {
+        this.password = ppassword;
     }
 
-
     public int getNumber(){
-        System.out.println("Number: " + this.number);
         return number;
     }
 
-    public void setNumber(int number) {
-        number= this.number;
+    public void setNumber(int nnumber) {
+        this.number= nnumber;
+    }
+    void DisplayNumber () {
+        System.out.println("Number of " + this.getLogin() + " is " + this.getNumber());
     }
 
-//    int Numm () {
-//        int num = 15;
-//        return num;
-//    }
-
-    public int passwordLenght () {
+    public void passwordLenght () {
         System.out.println(this.login + " password lenght = " + password.length());
-        return pwdlnght;
     }
 
     void ent() {
-        System.out.println("\nUser " + this.login + " credentials:");
-        getLogin();
-        getPassword();
+        System.out.println("User #" + this.getNumber() + ", " + this.getLogin() + "; pass: " + getPassword());
     }
 }

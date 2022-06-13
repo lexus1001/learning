@@ -2,17 +2,23 @@ import java.util.Scanner;
 
 public class FullCreds extends Creds {
 
-    private boolean banned;
+    public boolean banned;
 
     public void setBanned(boolean banned) {
         this.banned = banned;
     }
 
-    public boolean isBanned() {
-        if (banned) {
-            System.out.println("User banned");
-        }
+   public boolean getBanned() {
         return banned;
+   }
+
+    void isBanned () {
+        if (this.getBanned()) {
+            System.out.println("This user is banned");
+        }
+        else {
+           System.out.println("All Ok");
+        }
     }
 
     public FullCreds(int number, String login, String password, boolean banned) {
@@ -20,7 +26,9 @@ public class FullCreds extends Creds {
         setLogin(login);
         setPassword(password);
         setNumber(number);
+        setBanned(banned);
     }
+    public  FullCreds () {}
 
 
     }
