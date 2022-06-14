@@ -3,21 +3,21 @@ public class Creds {
         private int number;
        protected String login;
        protected String password;
-       private int pwdlnght;
 
 
-    public Creds (boolean thisisSimpleCreds) {};
+    public Creds (boolean thisIsSimpleCreds) {
+       // this (ClassValue);
+    };
     public Creds (int number) {
         setNumber(number);
     }
     public Creds () {}
 
     public String getLogin() {
-        System.out.println("Имя: " + login);
         return login;
     }
-    public void setLogin(String llogin) {
-        this.login = llogin;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -36,7 +36,7 @@ public class Creds {
         this.number= nnumber;
     }
     void DisplayNumber () {
-        System.out.println("Number of " + this.getLogin() + " is " + this.getNumber());
+        System.out.println("Number of " + this.login + " is " + this.getNumber());
     }
 
     public void passwordLenght () {

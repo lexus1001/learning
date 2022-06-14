@@ -1,6 +1,7 @@
 //import java.util.Arrays;
 import Interfaces.API;
 import Interfaces.DB;
+import org.testng.IReporter;
 import org.testng.annotations.Test;
 
 import java.util.Scanner;
@@ -9,16 +10,13 @@ public class Start {
 
         public static void main(String[] args) {
 
-            boolean ban;
-
-
 
             Local ua = new Local();
             Local ru = new Local();
             Local ee = new Local();
                 ua.setLocal(331,"Ukraine");
                 ru.setLocal(7,"Russia");
-                ee.setLocal(05, "");
+                ee.setLocal(05, "Eesti");
 
 
 //             DB PosgreSQL = new DB();
@@ -29,7 +27,7 @@ public class Start {
             SimpleCreds lexus100 = new SimpleCreds (2);
             SimpleCreds Alex = new SimpleCreds(logins[1], 12345, true);
             FullCreds Nikolya = new FullCreds(3, logins[2], "3333buiyvytui33", false);
-            FullCreds Marta = new FullCreds(4, logins[3], "qwety7", true);
+            FullCreds Marta = new FullCreds(4, logins[3], "qwety74", true);
             Creds Zina = new Creds(false);
             MegaFullCreds Ira = new MegaFullCreds(5,logins[5],"", false,false );
 
@@ -71,70 +69,76 @@ public class Start {
 
             Class a;
             a = ua.getClass();
-            System.out.println(a);
+            System.out.println("ua from class " + a);
 
             Class m = Marta.getClass();
             Class al = Alex.getClass();
             Class l = lexus100.getClass();
             Class n = Nikolya.getClass();
-            //Class ir = Ira.getClass();
+            Class ir = logins[5].getClass();
 
 
             String u;
-            System.out.println("Please enter login: ");
-            Scanner User = new Scanner(System.in);
-            u = User.nextLine();
+            do {
+                System.out.println("Please enter login: ");
+                Scanner User = new Scanner(System.in);
+                u = User.nextLine();
 
-            switch (u) {
-                case "lexus100":
-                    lexus100.DisplayNumber();
-                    System.out.println(l);
-                    ru.loc();
-                    int lxsmin = ru.calcu();
-                    System.out.println("minus: " + lxsmin);
-                    break;
-                case "Alex":
-                    Alex.passwordLenght();
-                    System.out.println(al);
-                    ua.loc();
-                    int Almin = ua.calcu();
-                    System.out.println(Almin);
-                    break;
-                case "Nikol":
-                    Nikolya.DisplayNumber();
-                    Nikolya.passwordLenght();
-                    System.out.println(n);
-                    ee.loc();
-                    Nikolya.isBanned();
-                    break;
-                case "Mara":
-                    Marta.getLogin();
-                    Marta.DisplayNumber();
-                    Marta.passwordLenght();
-                    System.out.println(m);
-                    ru.loc();
-                    Marta.isBanned();
-                    break;
-                case "Zina":
-                    try {
-                        //Vera.passwordLenght();
-                        if (Zina.getLogin() == null) {
-                            throw new Exception("No info about Zina");
+                switch (u) {
+                    case "lexus100":
+                        if (l.getClass().isInterface()) {
+                            break;
                         }
-                    } catch (Exception exep2) {
-                        exep2.printStackTrace();
-                    }
-                    ru.loc();
-                    break;
-                case "Ira" :
-                    Ira.ent();
-                    Ira.isBanned();
-                    Ira.passwordLenght();
-                    break;
-                default:
-                    System.out.println("No info");
-                    break;
-            }
+                        lexus100.DisplayNumber();
+                        System.out.println(l);
+                        ru.loc();
+                        int lxsmin = ru.calcu();
+                        System.out.println("minus: " + lxsmin);
+                        break;
+                    case "Alex":
+                        Alex.passwordLenght();
+                        System.out.println(al);
+                        ua.loc();
+                        int Almin = ua.calcu();
+                        System.out.println(Almin);
+                        break;
+                    case "Nikol":
+                        Nikolya.DisplayNumber();
+                        Nikolya.passwordLenght();
+                        System.out.println(n);
+                        ee.loc();
+                        Nikolya.isBanned();
+                        break;
+                    case "Mara":
+                        Marta.getLogin();
+                        Marta.DisplayNumber();
+                        Marta.passwordLenght();
+                        System.out.println(m);
+                        ru.loc();
+                        Marta.isBanned();
+                        break;
+                    case "Zina":
+                        try {
+                            //Vera.passwordLenght();
+                            if (Zina.getLogin() == null) {
+                                throw new Exception("No info about Zina");
+                            }
+                        } catch (Exception exep2) {
+                            exep2.printStackTrace();
+                        }
+                        ru.loc();
+                        break;
+                    case "Ira":
+                        Ira.ent();
+                        Ira.isBanned();
+                        Ira.passwordLenght();
+                        System.out.println(ir);
+                        break;
+                    default:
+                        System.out.println("No info");
+                        break;
+                }
+            } while (u.equals("q"));
         }
     }
 class Local {
@@ -149,11 +153,10 @@ class Local {
         int minus = 25 + code;
         return minus;
     }
-    void setLocal(int ccode, String ccountry) {
-            code = ccode;
+    void setLocal(int code, String ccountry) {
+            this.code = code;
             country = ccountry;
     }
-
     public Object getCode() {
         return code;
     }

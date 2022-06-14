@@ -1,8 +1,9 @@
 import org.testng.annotations.Test;
 
+import java.util.logging.Logger;
+
 public class SimpleCreds extends Creds {
 
-    int number;
 
 
     public SimpleCreds (int number) {
@@ -18,13 +19,10 @@ public class SimpleCreds extends Creds {
     }
     @Test
     public void FirstTest() {
-
+if (this.getPassword().equals("qwerty")) {
+    System.out.println("Really first Test??");
+}
     }
-
-//    @Override
-//    public int getNumber() {
-//        return super.getNumber();
-//    }
 
     @Override
     void DisplayNumber() {
