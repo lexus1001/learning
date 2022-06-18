@@ -1,33 +1,38 @@
-import org.testng.annotations.Test;
-
-import java.util.logging.Logger;
-
+import static java.lang.System.*;
 public class SimpleCreds extends Creds {
 
+    private static int countClassCreds;
 
 
     public SimpleCreds (int number) {
         setNumber(number);
+        countClassCreds++;
     }
     public SimpleCreds(String login, int pwd, boolean thisIsSimpleCreds) {
         setLogin(login);
         setPassword(String.valueOf(pwd));
+        countClassCreds++;
     }
+    public SimpleCreds(){};
 
-    public SimpleCreds(boolean thisIsSC) {
-        super(thisIsSC);
-    }
-    @Test
     public void FirstTest() {
-if (this.getPassword().equals("qwerty")) {
-    System.out.println("Really first Test??");
-}
+        if (this.getNumber()==2) {
+            System.out.println("Really first Test??");
+        }
+        else
+            out.println("First test failed.");
     }
 
     @Override
-    void DisplayNumber() {
-        System.out.println("Number of this user equals " + this.getNumber() );
+    public void DisplayNumber() {
+        System.out.println("Number of this user equal " + this.getNumber());
     }
+
+    @Override
+    protected void printCountClassCreds() {
+        System.out.println("Count of SimpleCreds users - " + countClassCreds);
+    }
+
     @Override
     public String getPassword() {
         String simplePass = super.getPassword();

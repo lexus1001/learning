@@ -1,16 +1,9 @@
-public class Creds {
+public abstract class Creds {
 
         private int number;
        protected String login;
        protected String password;
 
-
-    public Creds (boolean thisIsSimpleCreds) {
-       // this (ClassValue);
-    };
-    public Creds (int number) {
-        setNumber(number);
-    }
     public Creds () {}
 
     public String getLogin() {
@@ -20,7 +13,7 @@ public class Creds {
         this.login = login;
     }
 
-    public String getPassword() {
+    protected String getPassword() {
         return password;
     }
 
@@ -34,9 +27,13 @@ public class Creds {
 
     public void setNumber(int nnumber) {
         this.number= nnumber;
+
     }
-    void DisplayNumber () {
-        System.out.println("Number of " + this.login + " is " + this.getNumber());
+    public abstract void DisplayNumber ();
+    protected abstract void printCountClassCreds();
+
+    protected void DisplayLogin () {
+        System.out.println(this.getLogin());
     }
 
     public void passwordLenght () {

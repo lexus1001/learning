@@ -1,8 +1,6 @@
 //import java.util.Arrays;
 import Interfaces.API;
 import Interfaces.DB;
-import org.testng.IReporter;
-import org.testng.annotations.Test;
 
 import java.util.Scanner;
 
@@ -14,30 +12,41 @@ public class Start {
             Local ua = new Local();
             Local ru = new Local();
             Local ee = new Local();
-                ua.setLocal(331,"Ukraine");
-                ru.setLocal(7,"Russia");
-                ee.setLocal(05, "Eesti");
+            ua.setLocal(331, "Ukraine");
+            ru.setLocal(7, "Russia");
+            ee.setLocal(05, "Eesti");
+            Local.description = "Local";
+            Local.getDescr();
 
+            System.out.println(Math.pow(2, 18));
 
 //             DB PosgreSQL = new DB();
 //             API REST = new API();
 
-            String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Zina","Ira"};
-            Creds Denis = new Creds();
-            SimpleCreds lexus100 = new SimpleCreds (2);
+            String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
+            SimpleCreds defaultSimpleCreds = new SimpleCreds();
+            FullCreds defaultFullCreds = new FullCreds();
+            SimpleCreds lexus100 = new SimpleCreds(0);
             SimpleCreds Alex = new SimpleCreds(logins[1], 12345, true);
+            FullCreds Denis = new FullCreds();
             FullCreds Nikolya = new FullCreds(3, logins[2], "3333buiyvytui33", false);
             FullCreds Marta = new FullCreds(4, logins[3], "qwety74", true);
-            Creds Zina = new Creds(false);
-            MegaFullCreds Ira = new MegaFullCreds(5,logins[5],"", false,false );
+            //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
+            Creds Zina = new SimpleCreds(7);
+            MegaFullCreds Ira = new MegaFullCreds(5, logins[5], "", false, false);
 
             int i = 0;
             System.out.println("All users list: ");
             for (String logeens : logins) {
-                System.out.print(logins[i] + "; ");
-                i++;
+                if (i < (logins.length - 1)) {
+                    System.out.print(logins[i] + "; ");
+                    i++;
+                } else {
+                    System.out.print(logins[i] + ". ");
+                }
             }
-            System.out.println();
+            //System.out.println();
+            System.out.println("\nFull count of users: " + logins.length);
 //        try {
 //            Alex.passwordLenght();
 //        } catch (Exception exeep) {
@@ -60,7 +69,7 @@ public class Start {
             }
             lexus100.getPassword();
 
-//        REST.read();  // Интерфейсы
+//        REST.read();  //
 //        REST.listen();
 //        PosgreSQL.read();
 //         Interface Tool = PosgreSQL;
@@ -77,6 +86,7 @@ public class Start {
             Class n = Nikolya.getClass();
             Class ir = logins[5].getClass();
 
+//lexus100.FirstTest();
 
             String u;
             do {
@@ -86,7 +96,7 @@ public class Start {
 
                 switch (u) {
                     case "lexus100":
-                        if (l.getClass().isInterface()) {
+                        if (l.isLocalClass()) {
                             break;
                         }
                         lexus100.DisplayNumber();
@@ -100,6 +110,7 @@ public class Start {
                         System.out.println(al);
                         ua.loc();
                         int Almin = ua.calcu();
+                        defaultSimpleCreds.printCountClassCreds();
                         System.out.println(Almin);
                         break;
                     case "Nikol":
@@ -108,16 +119,19 @@ public class Start {
                         System.out.println(n);
                         ee.loc();
                         Nikolya.isBanned();
+                        defaultFullCreds.printCountClassCreds();
                         break;
                     case "Mara":
-                        Marta.getLogin();
+                        Marta.DisplayLogin();
                         Marta.DisplayNumber();
                         Marta.passwordLenght();
                         System.out.println(m);
                         ru.loc();
                         Marta.isBanned();
+                        Marta.printCountClassCreds();
                         break;
                     case "Zina":
+                        defaultSimpleCreds.printCountClassCreds();
                         try {
                             //Vera.passwordLenght();
                             if (Zina.getLogin() == null) {
@@ -133,6 +147,7 @@ public class Start {
                         Ira.isBanned();
                         Ira.passwordLenght();
                         System.out.println(ir);
+                        Ira.printCountClassCreds();
                         break;
                     default:
                         System.out.println("No info");
@@ -144,6 +159,7 @@ public class Start {
 class Local {
     private String country;
     private int code;
+    public static  String description;
 
     public Local () {
         setLocal(code,country);
@@ -165,15 +181,20 @@ class Local {
     }
 
     void loc() {
-        if ((country=="Russia"| country == "Ukraine") & code>=7 ){
-            System.out.println(this.getCountry() + " (telephone code: +" + this.getCode() + ")");
+        if ((country.equals("Russia")| country == "Ukraine") & code>=7 ){
+            System.out.println(description + ": " + this.getCountry() + " (telephone code: +" + this.getCode() + ")");
         }
         else if (country.isEmpty()) {
             System.out.println("Country name needed");
         }
         else
-            System.out.println("Local " + getCountry() + " is permitted");
+            System.out.println(description + getCountry() + " is permitted");
     }
+
+    public static void getDescr() {
+        System.out.println(description);
+    }
+
 }
 
 
