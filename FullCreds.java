@@ -31,8 +31,13 @@ public class FullCreds extends Creds {
             System.out.println("All Ok");
         }
     }
-    protected void printCountClassCreds() {
-        System.out.println("Full count users in FullCreds = " + countClassCreds);
+    protected void printCountClassCreds() {  //ToDo *Bug* MegaFullCreds-пользователи считаются при подсчёте пользователей FullCreds
+       StringBuilder full_count = new StringBuilder("Full count users in ");
+        full_count.append("FullCreds");
+        full_count.append(" = ");
+        full_count.append(countClassCreds);
+        System.out.println(full_count.toString());
+
     }
     @Override
     public void DisplayNumber() {

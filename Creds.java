@@ -17,8 +17,8 @@ public abstract class Creds {
         return password;
     }
 
-    public void setPassword(String ppassword) {
-        this.password = ppassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getNumber(){
@@ -26,7 +26,7 @@ public abstract class Creds {
     }
 
     public void setNumber(int nnumber) {
-        this.number= nnumber;
+        this.number = nnumber;
 
     }
     public abstract void DisplayNumber ();
@@ -42,5 +42,18 @@ public abstract class Creds {
 
     void ent() {
         System.out.println("User #" + this.getNumber() + ", " + this.getLogin() + "; pass: " + getPassword());
+    }
+    public void bigPass() {
+        try {
+            int x = this.getPassword().length();
+            StringBuilder TLPass = new StringBuilder("Too long password on user ");
+            TLPass.append(this.login);
+            if (x > 13) {
+                throw new Exception(String.valueOf(TLPass));
+            }
+        } catch (Exception exep1) {
+            exep1.printStackTrace();
+            //System.out.println(exep1.getMessage());
+        }
     }
 }

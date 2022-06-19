@@ -2,6 +2,7 @@
 import Interfaces.API;
 import Interfaces.DB;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Start {
@@ -18,7 +19,7 @@ public class Start {
             Local.description = "Local";
             Local.getDescr();
 
-            System.out.println(Math.pow(2, 18));
+            System.out.println(Math.pow(1.1, 18));
 
 //             DB PosgreSQL = new DB();
 //             API REST = new API();
@@ -26,11 +27,11 @@ public class Start {
             String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
             SimpleCreds defaultSimpleCreds = new SimpleCreds();
             FullCreds defaultFullCreds = new FullCreds();
-            SimpleCreds lexus100 = new SimpleCreds(0);
-            SimpleCreds Alex = new SimpleCreds(logins[1], 12345, true);
+            SimpleCreds lexus100 = new SimpleCreds(2);
+            SimpleCreds Alex = new SimpleCreds(logins[1], 1234567890, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
             FullCreds Denis = new FullCreds();
-            FullCreds Nikolya = new FullCreds(3, logins[2], "3333buiyvytui33", false);
-            FullCreds Marta = new FullCreds(4, logins[3], "qwety74", true);
+            FullCreds Nikolya = new FullCreds(3, logins[2], "3333buitui33", false);
+            FullCreds Marta = new FullCreds(4, logins[3], "qwerdy746jnu67", true);
             //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
             Creds Zina = new SimpleCreds(7);
             MegaFullCreds Ira = new MegaFullCreds(5, logins[5], "", false, false);
@@ -45,29 +46,18 @@ public class Start {
                     System.out.print(logins[i] + ". ");
                 }
             }
-            //System.out.println();
             System.out.println("\nFull count of users: " + logins.length);
-//        try {
-//            Alex.passwordLenght();
-//        } catch (Exception exeep) {
-//            exeep.printStackTrace();
-//        }
-//        try {
-//            lexus100.passwordLenght();
-//        } catch (NumberFormatException exeep1) {
-//            exeep1.fillInStackTrace();
-//        }
-//        System.out.println("Невозможно посчитать длину пароля у пользователя " + Alex.getLogin());
-            try {
-                int x = Nikolya.getPassword().length();
-                if (x < 13) {
-                    throw new Exception("Too long password");
-                }
-            } catch (Exception exep1) {
-                exep1.printStackTrace();
-                //System.out.println(exep1.getMessage());
-            }
-            lexus100.getPassword();
+//
+//            try {
+//                int x = Nikolya.getPassword().length();
+//                if (x > 13) {
+//                    throw new Exception("Too long password");
+//                }
+//            } catch (Exception exep1) {
+//                exep1.printStackTrace();
+//                //System.out.println(exep1.getMessage());
+//            }
+
 
 //        REST.read();  //
 //        REST.listen();
@@ -93,29 +83,26 @@ public class Start {
                 System.out.println("Please enter login: ");
                 Scanner User = new Scanner(System.in);
                 u = User.nextLine();
+                String ug;
 
-                switch (u) {
+                switch (u) { //ToDo *feature* Игнорировать размер букв
                     case "lexus100":
-                        if (l.isLocalClass()) {
-                            break;
-                        }
+                        lexus100.bigPass();
                         lexus100.DisplayNumber();
                         System.out.println(l);
                         ru.loc();
-                        int lxsmin = ru.calcu();
-                        System.out.println("minus: " + lxsmin);
                         break;
                     case "Alex":
                         Alex.passwordLenght();
+                        Alex.bigPass();
                         System.out.println(al);
                         ua.loc();
-                        int Almin = ua.calcu();
                         defaultSimpleCreds.printCountClassCreds();
-                        System.out.println(Almin);
                         break;
                     case "Nikol":
                         Nikolya.DisplayNumber();
                         Nikolya.passwordLenght();
+                        Nikolya.bigPass();
                         System.out.println(n);
                         ee.loc();
                         Nikolya.isBanned();
@@ -125,6 +112,7 @@ public class Start {
                         Marta.DisplayLogin();
                         Marta.DisplayNumber();
                         Marta.passwordLenght();
+                        Marta.bigPass();
                         System.out.println(m);
                         ru.loc();
                         Marta.isBanned();
@@ -146,6 +134,7 @@ public class Start {
                         Ira.ent();
                         Ira.isBanned();
                         Ira.passwordLenght();
+                        Ira.bigPass();
                         System.out.println(ir);
                         Ira.printCountClassCreds();
                         break;
@@ -153,7 +142,7 @@ public class Start {
                         System.out.println("No info");
                         break;
                 }
-            } while (u.equals("q"));
+            } while (u.equals("q")); //ToDo *feature* Реализовать выход по кнопке q
         }
     }
 class Local {
@@ -165,10 +154,6 @@ class Local {
         setLocal(code,country);
     }
 
-    int calcu() {
-        int minus = 25 + code;
-        return minus;
-    }
     void setLocal(int code, String ccountry) {
             this.code = code;
             country = ccountry;

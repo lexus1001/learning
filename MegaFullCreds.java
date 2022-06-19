@@ -13,7 +13,11 @@ public class MegaFullCreds extends FullCreds {
     }
 
     protected void printCountClassCreds() {
-               System.out.println("Общее количество пользователей с флагом MegaFull = " + countClassCreds);
+        StringBuilder fullCount = new StringBuilder();
+        fullCount.append("Full count users in ").append("MegaFullCreds").append(" = ").append(countClassCreds);
+
+        System.out.println(fullCount.toString());
+
     }
     @Override
     public void setBanned (boolean banned) {
