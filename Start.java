@@ -2,13 +2,21 @@
 import Interfaces.API;
 import Interfaces.DB;
 
+import java.nio.channels.NonWritableChannelException;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.Date;
+import java.util.random.RandomGenerator;
 
 public class Start {
 
         public static void main(String[] args) {
 
+            String randomNumber;
+            long timestamp;
+
+            timestamp = System.currentTimeMillis();
 
             Local ua = new Local();
             Local ru = new Local();
@@ -17,9 +25,11 @@ public class Start {
             ru.setLocal(7, "Russia");
             ee.setLocal(05, "Eesti");
             Local.description = "Local";
+            StringBuilder time = new StringBuilder();
             Local.getDescr();
+            time.append(" time is ").append(timestamp).append(" and math = ");
 
-            System.out.println(Math.pow(1.1, 18));
+            System.out.printf(time.toString() + "%.3f \n",Math.pow(1.1, 18));
 
 //             DB PosgreSQL = new DB();
 //             API REST = new API();
@@ -27,14 +37,15 @@ public class Start {
             String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
             SimpleCreds defaultSimpleCreds = new SimpleCreds();
             FullCreds defaultFullCreds = new FullCreds();
-            SimpleCreds lexus100 = new SimpleCreds(2);
+            SimpleCreds lexus100 = new SimpleCreds(0);
             SimpleCreds Alex = new SimpleCreds(logins[1], 1234567890, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
             FullCreds Denis = new FullCreds();
             FullCreds Nikolya = new FullCreds(3, logins[2], "3333buitui33", false);
-            FullCreds Marta = new FullCreds(4, logins[3], "qwerdy746jnu67", true);
+            FullCreds Marta = new FullCreds(4, logins[3], "qwer5y67", true);
             //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
             Creds Zina = new SimpleCreds(7);
             MegaFullCreds Ira = new MegaFullCreds(5, logins[5], "", false, false);
+
 
             int i = 0;
             System.out.println("All users list: ");
@@ -46,7 +57,7 @@ public class Start {
                     System.out.print(logins[i] + ". ");
                 }
             }
-            System.out.println("\nFull count of users: " + logins.length);
+            System.out.printf("\nFull count of users: %d",  logins.length);
 //
 //            try {
 //                int x = Nikolya.getPassword().length();
@@ -68,7 +79,7 @@ public class Start {
 
             Class a;
             a = ua.getClass();
-            System.out.println("ua from class " + a);
+            System.out.println("\nua from class " + a);
 
             Class m = Marta.getClass();
             Class al = Alex.getClass();
@@ -91,6 +102,7 @@ public class Start {
                         lexus100.DisplayNumber();
                         System.out.println(l);
                         ru.loc();
+                        defaultSimpleCreds.printCountClassCreds();
                         break;
                     case "Alex":
                         Alex.passwordLenght();
@@ -177,7 +189,7 @@ class Local {
     }
 
     public static void getDescr() {
-        System.out.println(description);
+        System.out.print(description);
     }
 
 }

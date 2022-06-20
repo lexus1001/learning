@@ -21,14 +21,22 @@ public abstract class Creds {
         this.password = password;
     }
 
-    public int getNumber(){
+    public int getNumber() {
+        try {
+            if (number < 1) {
+                throw new Exception("Number can't be zero or negative");
+            }
+        } catch (Exception exept2) {
+            exept2.printStackTrace();
+
+        }
         return number;
     }
 
     public void setNumber(int nnumber) {
         this.number = nnumber;
+        }
 
-    }
     public abstract void DisplayNumber ();
     protected abstract void printCountClassCreds();
 

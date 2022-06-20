@@ -41,7 +41,7 @@ public class FullCreds extends Creds {
     }
     @Override
     public void DisplayNumber() {
-        System.out.println("Number of user " + this.login + " is " + this.getNumber());
+        System.out.printf("Number of user %-2s %1s %d \n", this.login, " is ", this.getNumber());
     }
 
 }
