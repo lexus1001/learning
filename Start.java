@@ -2,8 +2,6 @@
 import Interfaces.API;
 import Interfaces.DB;
 
-import java.nio.channels.NonWritableChannelException;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Date;
@@ -13,9 +11,7 @@ public class Start {
 
         public static void main(String[] args) {
 
-            String randomNumber;
             long timestamp;
-
             timestamp = System.currentTimeMillis();
 
             Local ua = new Local();
@@ -29,23 +25,23 @@ public class Start {
             Local.getDescr();
             time.append(" time is ").append(timestamp).append(" and math = ");
 
-            System.out.printf(time.toString() + "%.3f \n",Math.pow(1.1, 18));
+            System.out.printf(time.toString() + "%.3f \n", Math.pow(1.1, 18));
 
 //             DB PosgreSQL = new DB();
 //             API REST = new API();
 
             String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
-            SimpleCreds defaultSimpleCreds = new SimpleCreds();
-            FullCreds defaultFullCreds = new FullCreds();
-            SimpleCreds lexus100 = new SimpleCreds(0);
-            SimpleCreds Alex = new SimpleCreds(logins[1], 1234567890, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
-            FullCreds Denis = new FullCreds();
-            FullCreds Nikolya = new FullCreds(3, logins[2], "3333buitui33", false);
-            FullCreds Marta = new FullCreds(4, logins[3], "qwer5y67", true);
-            //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
-            Creds Zina = new SimpleCreds(7);
-            MegaFullCreds Ira = new MegaFullCreds(5, logins[5], "", false, false);
 
+                SimpleCreds defaultSimpleCreds = new SimpleCreds();
+                FullCreds defaultFullCreds = new FullCreds();
+                SimpleCreds lexus100 = new SimpleCreds(0);
+                SimpleCreds Alex = new SimpleCreds(logins[1], 1234567890, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+                FullCreds Denis = new FullCreds();
+                FullCreds Nikolya = new FullCreds(3, logins[2], "3333brteguitui33", false);
+                FullCreds Marta = new FullCreds(4, logins[3], "qwer5y67", true);
+                //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
+                Creds Zina = new SimpleCreds(7);
+                MegaFullCreds Ira = new MegaFullCreds(5, logins[5], "", false, false);
 
             int i = 0;
             System.out.println("All users list: ");
@@ -58,17 +54,6 @@ public class Start {
                 }
             }
             System.out.printf("\nFull count of users: %d",  logins.length);
-//
-//            try {
-//                int x = Nikolya.getPassword().length();
-//                if (x > 13) {
-//                    throw new Exception("Too long password");
-//                }
-//            } catch (Exception exep1) {
-//                exep1.printStackTrace();
-//                //System.out.println(exep1.getMessage());
-//            }
-
 
 //        REST.read();  //
 //        REST.listen();
@@ -90,11 +75,39 @@ public class Start {
 //lexus100.FirstTest();
 
             String u;
-            do {
-                System.out.println("Please enter login: ");
+            int un;
+            System.out.println("\n\tPlease enter user number ");
+            Scanner Number = new Scanner(System.in);
+
+            try {
+                un = Number.nextInt();
+                if (un<0) {
+                    throw new NegativeArraySizeException("Не может быть меньше нуля");
+                }
+                else if (un>logins.length) {
+                throw new ArrayIndexOutOfBoundsException("Too big num");
+                }
+                    {
+                        System.out.println(logins[un]);
+                        u = logins[un];
+                    }
+                }
+            catch (NegativeArraySizeException excep) {
+               excep.printStackTrace();
+                System.out.println("\tPlease enter login: ");
                 Scanner User = new Scanner(System.in);
                 u = User.nextLine();
-                String ug;
+            }
+            catch (ArrayIndexOutOfBoundsException exep_arr_s) {
+             exep_arr_s.printStackTrace();
+                System.out.println("\tPlease enter login: ");
+                Scanner User = new Scanner(System.in);
+                u = User.nextLine();
+             }
+
+
+            do { //ToDo Сделать работающий do_while
+
 
                 switch (u) { //ToDo *feature* Игнорировать размер букв
                     case "lexus100":
@@ -150,17 +163,21 @@ public class Start {
                         System.out.println(ir);
                         Ira.printCountClassCreds();
                         break;
+                    case "Den":
+                        Denis.printCountClassCreds();
+                        break;
                     default:
                         System.out.println("No info");
                         break;
                 }
             } while (u.equals("q")); //ToDo *feature* Реализовать выход по кнопке q
+
         }
     }
 class Local {
     private String country;
     private int code;
-    public static  String description;
+    public static String description;
 
     public Local () {
         setLocal(code,country);
@@ -191,7 +208,6 @@ class Local {
     public static void getDescr() {
         System.out.print(description);
     }
-
 }
 
 

@@ -5,6 +5,7 @@ public class FullCreds extends Creds {
     public boolean banned;
     private static int countClassCreds;
 
+
     public FullCreds() {
         countClassCreds++;
     }

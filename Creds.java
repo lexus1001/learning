@@ -1,3 +1,5 @@
+import java.util.concurrent.ExecutionException;
+
 public abstract class Creds {
 
         private int number;
@@ -28,7 +30,6 @@ public abstract class Creds {
             }
         } catch (Exception exept2) {
             exept2.printStackTrace();
-
         }
         return number;
     }
@@ -60,8 +61,7 @@ public abstract class Creds {
                 throw new Exception(String.valueOf(TLPass));
             }
         } catch (Exception exep1) {
-            exep1.printStackTrace();
-            //System.out.println(exep1.getMessage());
+           // exep1.printStackTrace();
         }
     }
-}
+    }
