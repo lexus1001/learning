@@ -1,7 +1,9 @@
 //import java.util.Arrays;
 import Interfaces.API;
 import Interfaces.DB;
+import com.sun.jdi.ClassType;
 
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Date;
@@ -23,9 +25,9 @@ public class Start {
             Local.description = "Local";
             StringBuilder time = new StringBuilder();
             Local.getDescr();
-            time.append(" time is ").append(timestamp).append(" and math = ");
+            time.append(" time is ").append(timestamp).append(" and math = ").append(ee.hashCode());
 
-            System.out.printf(time.toString() + "%.3f \n", Math.pow(1.1, 18));
+            System.out.printf(time.toString() + "%.3f\n", Math.pow(1.1, 18));
 
 //             DB PosgreSQL = new DB();
 //             API REST = new API();
@@ -79,32 +81,40 @@ public class Start {
             System.out.println("\n\tPlease enter user number ");
             Scanner Number = new Scanner(System.in);
 
-            try {
+            try { //ToDo Разобраться с исключениями до конца.
                 un = Number.nextInt();
                 if (un<0) {
-                    throw new NegativeArraySizeException("Не может быть меньше нуля");
+                    throw new ArrayIndexOutOfBoundsException("Не может быть меньше нуля");
                 }
                 else if (un>logins.length) {
-                throw new ArrayIndexOutOfBoundsException("Too big num");
+                throw new NegativeArraySizeException("Too big num");
+                }
+                else if (logins[un].isEmpty()) { //ToDo Если не воспроизводится условия if, то throw не выполняется.
+                    throw new InputMismatchException("fdg");
                 }
                     {
                         System.out.println(logins[un]);
                         u = logins[un];
                     }
                 }
-            catch (NegativeArraySizeException excep) {
+            catch (ArrayIndexOutOfBoundsException excep) {
                excep.printStackTrace();
                 System.out.println("\tPlease enter login: ");
                 Scanner User = new Scanner(System.in);
                 u = User.nextLine();
             }
-            catch (ArrayIndexOutOfBoundsException exep_arr_s) {
-             exep_arr_s.printStackTrace();
-                System.out.println("\tPlease enter login: ");
+            catch (NegativeArraySizeException exep_arr_n) {
+             exep_arr_n.printStackTrace();
+                System.out.println("\tPlease enter loggin: ");
                 Scanner User = new Scanner(System.in);
                 u = User.nextLine();
              }
-
+            catch (InputMismatchException exep_arr_i) {
+                //exep_arr_i.printStackTrace();
+                System.out.println("Некорректно введён номер, укажите имя пользователя");
+                Scanner User = new Scanner(System.in);
+                u = User.nextLine();
+            }
 
             do { //ToDo Сделать работающий do_while
 
@@ -124,7 +134,7 @@ public class Start {
                         ua.loc();
                         defaultSimpleCreds.printCountClassCreds();
                         break;
-                    case "Nikol":
+                    case "Nikolya":
                         Nikolya.DisplayNumber();
                         Nikolya.passwordLenght();
                         Nikolya.bigPass();
@@ -178,6 +188,7 @@ class Local {
     private String country;
     private int code;
     public static String description;
+
 
     public Local () {
         setLocal(code,country);
