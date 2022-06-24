@@ -6,6 +6,8 @@ public abstract class Creds {
        protected String login;
        protected String password;
 
+    Start.Local l10n = new Start.Local();
+
     public Creds () {}
 
     public String getLogin() {
@@ -64,4 +66,5 @@ public abstract class Creds {
            // exep1.printStackTrace();
         }
     }
+
     }

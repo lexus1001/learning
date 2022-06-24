@@ -7,7 +7,6 @@ public class SimpleCreds extends Creds {
         setNumber(number);
         countClassCreds++;
     }
-
     public SimpleCreds(String login, int pwd, boolean thisIsSimpleCreds) {
         setLogin(login);
         setPassword(String.valueOf(pwd));
@@ -26,12 +25,12 @@ public class SimpleCreds extends Creds {
 
     @Override
     public void DisplayNumber() {
-        System.out.println("Number of this user equal " + this.getNumber());
+        out.println("Number of this user equal " + this.getNumber());
     }
 
     @Override
     protected void printCountClassCreds() {
-        out.printf("Count of %s users - %d", "SimpleCreds", countClassCreds);
+        out.printf ("Count of %s users - %d, %s", "SimpleCreds", countClassCreds, " \n");
     }
 
     @Override
