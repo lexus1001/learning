@@ -1,9 +1,11 @@
 //import java.util.Arrays;
 import Interfaces.API;
 import Interfaces.DB;
+import Interfaces.DB;
 
+import java.lang.ref.SoftReference;
 import java.util.InputMismatchException;
-import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Date;
 import java.util.random.RandomGenerator;
@@ -23,31 +25,38 @@ public class Start {
         ee.setLocal(05, "Eesti");
         Local.description = "Local";
         StringBuilder time = new StringBuilder();
-        Local.getDescr();
+        Local.getDescr("Местное время: ");
         time.append(" time is ").append(timestamp).append(" and math = ").append(ee.hashCode());
 
         System.out.printf(time.toString() + "%.3f\n", Math.pow(1.1, 18));
 
-//             DB PosgreSQL = new DB();
+             DB PosgreSQL = new DB();
 //             API REST = new API();
 
-        String[] logins = {"lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
+        String[] logins = {"admin","lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
 
-        SimpleCreds defaultSimpleCreds = new SimpleCreds();
-        FullCreds defaultFullCreds = new FullCreds();
-        SimpleCreds lexus100 = new SimpleCreds(0);
-        SimpleCreds Alex = new SimpleCreds(logins[1], 1234567890, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+        SimpleCreds lexus100 = new SimpleCreds(1);
+        SimpleCreds Alex = new SimpleCreds(logins[2], 1234567890, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
         FullCreds Denis = new FullCreds();
-        FullCreds Nikolya = new FullCreds(3, logins[2], "3333brteguitui33", false);
-        FullCreds Marta = new FullCreds(4, logins[3], "qwer5y67", true);
+        FullCreds Nikolya = new FullCreds(3, logins[3], "3333brteguitui33", false);
+        FullCreds Marta = new FullCreds(4, logins[4], "qwer5y67", true);
         //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
         Creds Zina = new SimpleCreds(7);
-        MegaFullCreds Ira = new MegaFullCreds(5, logins[5], "", false, false);
+        MegaFullCreds Ira = new MegaFullCreds(5, logins[6], "", false, false);
+        MegaFullCreds admin = new MegaFullCreds(0, "Admin", "123456789", false, true) {
+
+            @Override
+            public void passwordLenght() {
+                System.out.println("Odmen password lenght = " + (password.length()- getCCC()));
+                this.l10n.setLocal(0, "World");
+            }
+        };
 
         lexus100.l10n.setLocal(6, "Armenia");
         Alex.l10n.setLocal(352, "Whiterussia");
         //Zina.l10n.setLocal(7, "Russia");
         Marta.l10n.setLocal(12,"");
+
 
         int i = 0;
         System.out.println("All users list: ");
@@ -61,16 +70,15 @@ public class Start {
         }
         System.out.printf("\nFull count of users: %d", logins.length);
 
+
 //        REST.read();  //
 //        REST.listen();
 //        PosgreSQL.read();
 //         Interface Tool = PosgreSQL;
 
-        //  System.out.println(Arrays.toString(logins));
-
         Class a;
         a = ua.getClass();
-        System.out.println("\nua from class " + a);
+        System.out.println("\nua from " + a);
 
         Class l = lexus100.getClass();
         Class n = Nikolya.getClass();
@@ -91,8 +99,7 @@ public class Start {
                 throw new NegativeArraySizeException("Too big num");
             } else if (logins[un].isEmpty()) { //ToDo Если не воспроизводится условия if, то throw не выполняется.
                 throw new InputMismatchException("fdg");
-            }
-            {
+            }{
                 System.out.println(logins[un]);
                 u = logins[un];
             }
@@ -117,27 +124,32 @@ public class Start {
 
 
             switch (u) { //ToDo *feature* Игнорировать размер букв
+                case "admin" :
+                    admin.passwordLenght();
+                    admin.l10n.loc();
+                    break;
                 case "lexus100":
                     lexus100.bigPass();
                     lexus100.DisplayNumber();
                     System.out.println(l);
                     lexus100.l10n.loc();
-                    defaultSimpleCreds.printCountClassCreds();
+                    SimpleCreds.printCountClassCreds();
                     break;
                 case "Alex" :
                     Alex.passwordLenght();
                     Alex.bigPass();
                     Alex.l10n.loc();
-                    defaultSimpleCreds.printCountClassCreds();
+                   SimpleCreds.printCountClassCreds();
+                   Alex.classSelector();
                     break;
                 case "Nikolya":
                     Nikolya.DisplayNumber();
                     Nikolya.passwordLenght();
                     Nikolya.bigPass();
-                    System.out.println(n);
                     ee.loc();
                     Nikolya.isBanned();
-                    defaultFullCreds.printCountClassCreds();
+                    FullCreds.printCountClassCreds();
+                    Nikolya.classSelector();
                     break;
                 case "Mara":
                     Marta.DisplayLogin();
@@ -149,7 +161,7 @@ public class Start {
                     Marta.printCountClassCreds();
                     break;
                 case "Zina":
-                    defaultSimpleCreds.printCountClassCreds();
+                    SimpleCreds.printCountClassCreds();
                     try {
                         //Vera.passwordLenght();
                         if (Zina.getLogin() == null) {
@@ -212,6 +224,10 @@ public class Start {
         }
         public static void getDescr() {
             System.out.print(description);
+        }
+
+        public static void getDescr(String descrRu) {
+            System.out.print(descrRu);
         }
     }
 }

@@ -28,8 +28,8 @@ public class SimpleCreds extends Creds {
         out.println("Number of this user equal " + this.getNumber());
     }
 
-    @Override
-    protected void printCountClassCreds() {
+
+    protected static void printCountClassCreds() {
         out.printf ("Count of %s users - %d, %s", "SimpleCreds", countClassCreds, " \n");
     }
 

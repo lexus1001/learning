@@ -10,7 +10,6 @@ public class FullCreds extends Creds {
         countClassCreds++;
     }
     protected FullCreds(int number, String login, String password, boolean banned) {
-
         setLogin(login);
         setPassword(password);
         setNumber(number);
@@ -32,7 +31,7 @@ public class FullCreds extends Creds {
             System.out.println("All Ok");
         }
     }
-    protected void printCountClassCreds() {  //ToDo *Bug* MegaFullCreds-пользователи считаются при подсчёте пользователей FullCreds
+    protected static void printCountClassCreds() {  //ToDo *Bug* MegaFullCreds-пользователи считаются при подсчёте пользователей FullCreds
        StringBuilder full_count = new StringBuilder("Full count users in ");
         full_count.append("FullCreds");
         full_count.append(" = ");

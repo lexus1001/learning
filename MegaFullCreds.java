@@ -4,6 +4,7 @@ public class MegaFullCreds extends FullCreds {
 
      private static int countClassCreds;
 
+
     public MegaFullCreds (int number, String login, String password, boolean banned, boolean admin){
         setLogin(login);
         setPassword(password);
@@ -12,13 +13,19 @@ public class MegaFullCreds extends FullCreds {
         countClassCreds++;
     }
 
-    protected void printCountClassCreds() {
+    protected static void printCountClassCreds() {
         StringBuilder fullCount = new StringBuilder();
         fullCount.append("Full count users in ").append("MegaFullCreds").append(" = ").append(countClassCreds);
-
         System.out.println(fullCount.toString());
-
     }
+
+    public void setCCC (int countCC) {
+        countCC = this.countClassCreds;
+    }
+    public int getCCC () {
+        return countClassCreds;
+    }
+
     @Override
     public void setBanned (boolean banned) {
         if (Objects.equals(login, "Ira")) {

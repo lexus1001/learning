@@ -41,7 +41,7 @@ public abstract class Creds {
         }
 
     public abstract void DisplayNumber ();
-    protected abstract void printCountClassCreds();
+    protected static void printCountClassCreds(){};
 
     protected void DisplayLogin () {
         System.out.println(this.getLogin());
@@ -65,6 +65,13 @@ public abstract class Creds {
         } catch (Exception exep1) {
            // exep1.printStackTrace();
         }
+    }
+
+    public void classSelector () { //ToDo Make class selector function for passwords.
+
+        String a = String.valueOf(this.password.getClass());
+
+        System.out.println(a);
     }
 
     }
