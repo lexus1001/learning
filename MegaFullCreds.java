@@ -1,15 +1,19 @@
+import Interfaces.IAdditionalInfo;
+
 import java.util.Objects;
 
-public class MegaFullCreds extends FullCreds {
+public class MegaFullCreds extends FullCreds implements IAdditionalInfo {
 
      private static int countClassCreds;
+     boolean admin;
 
 
-    public MegaFullCreds (int number, String login, String password, boolean banned, boolean admin){
-        setLogin(login);
-        setPassword(password);
-        setNumber(number);
-        setBanned(banned);
+    public MegaFullCreds (int number, String login, String password, boolean banned, boolean isAdmin){
+        super(number, login, password, banned);
+//        setPassword(password);
+//        setNumber(number);
+//        setBanned(banned);
+
         countClassCreds++;
     }
 
@@ -45,4 +49,13 @@ public class MegaFullCreds extends FullCreds {
         }
     }
 
+    @Override
+    public void setAdmin (boolean admin) {
+        this.admin = admin;
+    }
+
+    @Override
+    public void hasMail() {
+        System.out.println("Функция ещё не реализована.");
+    }
 }

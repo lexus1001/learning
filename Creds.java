@@ -1,8 +1,6 @@
-import java.util.concurrent.ExecutionException;
-
 public abstract class Creds {
 
-        private int number;
+        private byte number;
        protected String login;
        protected String password;
 
@@ -10,7 +8,7 @@ public abstract class Creds {
 
     public Creds () {}
 
-    public String getLogin() {
+    public String getLogin() { //ToDo Почему 2 раза логин????
         return login;
     }
     public void setLogin(String login) {
@@ -28,7 +26,7 @@ public abstract class Creds {
     public int getNumber() {
         try {
             if (number < 1) {
-                throw new Exception("Number can't be zero or negative");
+                throw new Exception("Number can't be zero or negative"); //ToDo То же сообщение, если null. Need fix.
             }
         } catch (Exception exept2) {
             exept2.printStackTrace();
@@ -37,14 +35,14 @@ public abstract class Creds {
     }
 
     public void setNumber(int nnumber) {
-        this.number = nnumber;
+        this.number = (byte) nnumber;
         }
 
     public abstract void DisplayNumber ();
     protected static void printCountClassCreds(){};
 
     protected void DisplayLogin () {
-        System.out.println(this.getLogin());
+        System.out.println(this.login);
     }
 
     public void passwordLenght () {
@@ -52,7 +50,11 @@ public abstract class Creds {
     }
 
     void ent() {
-        System.out.println("User #" + this.getNumber() + ", " + this.getLogin() + "; pass: " + getPassword());
+        if (login!="Admin") { //ToDo Возможно реализовать через isAdmin
+            System.out.println("User #" + this.getNumber() + ", " + this.getLogin() + "; pass: " + getPassword());
+        }
+        else
+            System.out.println("Admin, pass: " + getPassword().hashCode());
     }
     public void bigPass() {
         try {
@@ -69,9 +71,13 @@ public abstract class Creds {
 
     public void classSelector () { //ToDo Make class selector function for passwords.
 
-        String a = String.valueOf(this.password.getClass());
+        String a;
+        a = String.valueOf(this.password.getClass());
 
-        System.out.println(a);
+        if (a.equals("class java.lang.String")) {
+            System.out.println(a);
+        } else
+        System.out.println("Fuck.. " + a);
     }
 
     }

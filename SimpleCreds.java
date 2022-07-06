@@ -1,20 +1,19 @@
 import static java.lang.System.*;
-public class SimpleCreds extends Creds {
+public final class SimpleCreds extends Creds {
 
     private static int countClassCreds;
+    long password;
 
     public SimpleCreds(int number) {
         setNumber(number);
         countClassCreds++;
     }
-    public SimpleCreds(String login, int pwd, boolean thisIsSimpleCreds) {
+    public SimpleCreds(String login, long pwd, boolean thisIsSimpleCreds) {
         setLogin(login);
         setPassword(String.valueOf(pwd));
         countClassCreds++;
     }
-
-    public SimpleCreds() {
-    }
+    public SimpleCreds() {}
 
     public void FirstTest() {
         if (this.getNumber() == 2) {
@@ -28,15 +27,13 @@ public class SimpleCreds extends Creds {
         out.println("Number of this user equal " + this.getNumber());
     }
 
-
     protected static void printCountClassCreds() {
         out.printf ("Count of %s users - %d, %s", "SimpleCreds", countClassCreds, " \n");
     }
 
-    @Override
-    public String getPassword() {
-        String simplePass = super.getPassword();
-        return "Pass: " + simplePass;
-    }
+//    protected String getPassword() { //ToDo This pass may be integer...
+//        int simplePass = password;
+//        return simplePass;
+//    }
 
 }

@@ -37,7 +37,6 @@ public class FullCreds extends Creds {
         full_count.append(" = ");
         full_count.append(countClassCreds);
         System.out.println(full_count.toString());
-
     }
     @Override
     public void DisplayNumber() {

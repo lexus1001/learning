@@ -2,6 +2,7 @@
 import Interfaces.API;
 import Interfaces.DB;
 import Interfaces.DB;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.SoftReference;
 import java.util.InputMismatchException;
@@ -17,18 +18,18 @@ public class Start {
         long timestamp;
         timestamp = System.currentTimeMillis();
 
-        Local ua = new Local();
+        Local ua= new Local();
         Local ru = new Local();
         Local ee = new Local();
         ua.setLocal(331, "Ukraine");
         ru.setLocal(7, "Russia");
         ee.setLocal(05, "Eesti");
-        Local.description = "Local";
+        Local.DESCRIPTION = "Local";
         StringBuilder time = new StringBuilder();
         Local.getDescr("Местное время: ");
         time.append(" time is ").append(timestamp).append(" and math = ").append(ee.hashCode());
-
-        System.out.printf(time.toString() + "%.3f\n", Math.pow(1.1, 18));
+        int mt = (int) Math.round(Math.pow(1.1, 16));
+        System.out.printf(time.toString() + "%.3f\n", mt);
 
              DB PosgreSQL = new DB();
 //             API REST = new API();
@@ -36,9 +37,10 @@ public class Start {
         String[] logins = {"admin","lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
 
         SimpleCreds lexus100 = new SimpleCreds(1);
-        SimpleCreds Alex = new SimpleCreds(logins[2], 1234567890, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+        SimpleCreds Alex = new SimpleCreds(logins[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+        SimpleCreds Marat = new SimpleCreds("Dima", 766847363,true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
-        FullCreds Nikolya = new FullCreds(3, logins[3], "3333brteguitui33", false);
+        FullCreds Nikolya = new FullCreds(-20, logins[3], "333", false);
         FullCreds Marta = new FullCreds(4, logins[4], "qwer5y67", true);
         //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
         Creds Zina = new SimpleCreds(7);
@@ -58,7 +60,7 @@ public class Start {
         Marta.l10n.setLocal(12,"");
 
 
-        int i = 0;
+        byte i = 0;
         System.out.println("All users list: ");
         for (String logeens : logins) {
             if (i < (logins.length - 1)) {
@@ -83,8 +85,6 @@ public class Start {
         Class l = lexus100.getClass();
         Class n = Nikolya.getClass();
         Class ir = logins[5].getClass();
-
-//lexus100.FirstTest();
 
         String u;
         int un;
@@ -120,13 +120,17 @@ public class Start {
             u = User.nextLine();
         }
 
-        do { //ToDo Сделать работающий do_while
-
+//        do
+//        { //ToDo Сделать работающий do_while
+//        continue; }
+//        while (u.equals('q'));
 
             switch (u) { //ToDo *feature* Игнорировать размер букв
                 case "admin" :
+                    admin.ent();
                     admin.passwordLenght();
                     admin.l10n.loc();
+                    admin.setAdmin(true);
                     break;
                 case "lexus100":
                     lexus100.bigPass();
@@ -136,27 +140,17 @@ public class Start {
                     SimpleCreds.printCountClassCreds();
                     break;
                 case "Alex" :
-                    Alex.passwordLenght();
-                    Alex.bigPass();
-                    Alex.l10n.loc();
+                    fullInfo(Alex);
                    SimpleCreds.printCountClassCreds();
-                   Alex.classSelector();
                     break;
                 case "Nikolya":
-                    Nikolya.DisplayNumber();
-                    Nikolya.passwordLenght();
-                    Nikolya.bigPass();
+                   fullInfo(Nikolya);
                     ee.loc();
                     Nikolya.isBanned();
                     FullCreds.printCountClassCreds();
-                    Nikolya.classSelector();
                     break;
-                case "Mara":
-                    Marta.DisplayLogin();
-                    Marta.DisplayNumber();
-                    Marta.passwordLenght();
-                    Marta.bigPass();
-                    ua.loc();
+                case "Marta":
+                    fullInfo(Marta);
                     Marta.isBanned();
                     Marta.printCountClassCreds();
                     break;
@@ -179,22 +173,22 @@ public class Start {
                     Ira.bigPass();
                     System.out.println(ir);
                     Ira.printCountClassCreds();
+                    Ira.setAdmin(false);
+                    Ira.hasMail();
                     break;
                 case "Den":
                     Denis.printCountClassCreds();
+                    fullInfo(Denis);
                     break;
                 default :
                     System.out.println("No info");
                     break;
             }
-        } while (u.equals("q")); //ToDo *feature* Реализовать выход по кнопке q
-
     }
-
     static class Local {
         private String country;
         private int code;
-        public static String description;
+        public static String DESCRIPTION;
 
 
         public Local() {
@@ -216,19 +210,29 @@ public class Start {
 
         void loc() {
             if ((country.equals("Russia") | country == "Ukraine") & code >= 7) {
-                System.out.println(description + ": " + this.getCountry() + " (telephone code: +" + this.getCode() + ")");
+                System.out.println(DESCRIPTION + ": " + this.getCountry() + " (telephone code: +" + this.getCode() + ")");
             } else if (country.isEmpty()) {
                 System.out.println("Country name needed");
             } else
-                System.out.println(description + " " + getCountry() + " is permitted");
+                System.out.println(DESCRIPTION + " " + getCountry() + " is permitted");
         }
-        public static void getDescr() {
-            System.out.print(description);
+        public final static void getDescr() {
+            System.out.print(DESCRIPTION);
         }
 
-        public static void getDescr(String descrRu) {
+        public final static void getDescr(String descrRu) {
             System.out.print(descrRu);
         }
+    }
+
+    public static void fullInfo (@NotNull Creds admin) {
+        admin.DisplayLogin();
+        admin.DisplayNumber();
+        admin.passwordLenght();
+        admin.ent();
+        admin.bigPass();
+        admin.classSelector();
+        admin.l10n.loc();
     }
 }
 
