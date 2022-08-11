@@ -1,8 +1,14 @@
 import static java.lang.System.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.LogRecord;
 public final class SimpleCreds extends Creds {
 
     private static int countClassCreds;
     long password;
+    Logger simpleLogger = Logger.getLogger("Positive");
+    LogRecord lgrec = new LogRecord(Level.ALL,"Wrote");
 
     public SimpleCreds(int number) {
         setNumber(number);
@@ -18,6 +24,8 @@ public final class SimpleCreds extends Creds {
     public void FirstTest() {
         if (this.getNumber() == 2) {
             out.println("Really first Test??");
+            simpleLogger.log(Level.INFO,"Tested");
+            out.println(lgrec.getLoggerName());
         } else
             out.println("First test failed.");
     }

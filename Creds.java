@@ -8,10 +8,10 @@ public abstract class Creds {
 
     public Creds () {}
 
-    public String getLogin() { //ToDo Почему 2 раза логин????
+    public String getLogin() { //ToDo Почему 2 раза логин????// Fixed(?)
         return login;
     }
-    public void setLogin(String login) {
+    public final void setLogin(String login) {
         this.login = login;
     }
 
@@ -26,7 +26,7 @@ public abstract class Creds {
     public int getNumber() {
         try {
             if (number < 1) {
-                throw new Exception("Number can't be zero or negative"); //ToDo То же сообщение, если null. Need fix.
+                throw new Exception("Number can't be zero or negative");//ToDo То же сообщение, если null. Need fix.
             }
         } catch (Exception exept2) {
             exept2.printStackTrace();

@@ -3,13 +3,12 @@ import Interfaces.API;
 import Interfaces.DB;
 import Interfaces.DB;
 import org.jetbrains.annotations.NotNull;
-
 import java.lang.ref.SoftReference;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Date;
-import java.util.random.RandomGenerator;
+import java.util.logging.Logger;
 
 public class Start {
 
@@ -17,6 +16,7 @@ public class Start {
 
         long timestamp;
         timestamp = System.currentTimeMillis();
+
 
         Local ua= new Local();
         Local ru = new Local();
@@ -28,7 +28,8 @@ public class Start {
         StringBuilder time = new StringBuilder();
         Local.getDescr("Местное время: ");
         time.append(" time is ").append(timestamp).append(" and math = ").append(ee.hashCode());
-        int mt = (int) Math.round(Math.pow(1.1, 16));
+
+        float mt = (float) Math.round(Math.pow(1.1, 16));
         System.out.printf(time.toString() + "%.3f\n", mt);
 
              DB PosgreSQL = new DB();
@@ -36,9 +37,9 @@ public class Start {
 
         String[] logins = {"admin","lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
 
-        SimpleCreds lexus100 = new SimpleCreds(1);
+        SimpleCreds lexus100 = new SimpleCreds(2);
         SimpleCreds Alex = new SimpleCreds(logins[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
-        SimpleCreds Marat = new SimpleCreds("Dima", 766847363,true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
+        SimpleCreds Diman = new SimpleCreds("Dima", 766847363,true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
         FullCreds Nikolya = new FullCreds(-20, logins[3], "333", false);
         FullCreds Marta = new FullCreds(4, logins[4], "qwer5y67", true);
@@ -77,10 +78,6 @@ public class Start {
 //        REST.listen();
 //        PosgreSQL.read();
 //         Interface Tool = PosgreSQL;
-
-        Class a;
-        a = ua.getClass();
-        System.out.println("\nua from " + a);
 
         Class l = lexus100.getClass();
         Class n = Nikolya.getClass();
@@ -138,6 +135,7 @@ public class Start {
                     System.out.println(l);
                     lexus100.l10n.loc();
                     SimpleCreds.printCountClassCreds();
+                    lexus100.FirstTest();
                     break;
                 case "Alex" :
                     fullInfo(Alex);
@@ -232,7 +230,7 @@ public class Start {
         admin.ent();
         admin.bigPass();
         admin.classSelector();
-        admin.l10n.loc();
+        //admin.l10n.loc();
     }
 }
 
