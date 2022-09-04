@@ -1,18 +1,17 @@
 //import java.util.Arrays;
-import Interfaces.API;
-import Interfaces.DB;
 import Interfaces.DB;
 import org.jetbrains.annotations.NotNull;
-import java.lang.ref.SoftReference;
-import java.time.format.DateTimeFormatter;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Date;
-import java.util.logging.Logger;
 
 public class Start {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         long timestamp;
         timestamp = System.currentTimeMillis();
@@ -30,7 +29,8 @@ public class Start {
         time.append(" time is ").append(timestamp).append(" and math = ").append(ee.hashCode());
 
         float mt = (float) Math.round(Math.pow(1.1, 16));
-        System.out.printf(time.toString() + "%.3f\n", mt);
+        double mtt = Math.random();
+        System.out.printf(time.toString() + "%.3f, %f\n", mt, mtt);
 
              DB PosgreSQL = new DB();
 //             API REST = new API();
@@ -41,7 +41,7 @@ public class Start {
         SimpleCreds Alex = new SimpleCreds(logins[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
         SimpleCreds Diman = new SimpleCreds("Dima", 766847363,true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
-        FullCreds Nikolya = new FullCreds(-20, logins[3], "333", false);
+        FullCreds Nikolya = new FullCreds(20, logins[3], "333", false);
         FullCreds Marta = new FullCreds(4, logins[4], "qwer5y67", true);
         //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
         Creds Zina = new SimpleCreds(7);
@@ -73,6 +73,22 @@ public class Start {
         }
         System.out.printf("\nFull count of users: %d", logins.length);
 
+        String seprtr = File.separator;
+        String IFL = "o:" + seprtr + "Development" + seprtr + "InitialUsersList.txt";
+        File InitialUsersList = new File(IFL);
+        Scanner InFL = new Scanner(InitialUsersList);
+        System.out.print("\nInitial list of logins: ");
+        //while (InFL.hasNextLine()) {
+            String IFLF = InFL.nextLine();
+          //  System.out.println("\nInitial users list: " + IFLF);
+        String[] InitialLogins = IFLF.split(";",4);
+//        for (String IL : InitialLogins) {
+//            Integer.parseInt(IL);
+//        }
+        System.out.println(Arrays.toString(InitialLogins));
+        //}
+        InFL.close();
+
 
 //        REST.read();  //
 //        REST.listen();
@@ -80,7 +96,6 @@ public class Start {
 //         Interface Tool = PosgreSQL;
 
         Class l = lexus100.getClass();
-        Class n = Nikolya.getClass();
         Class ir = logins[5].getClass();
 
         String u;
@@ -132,7 +147,7 @@ public class Start {
                 case "lexus100":
                     lexus100.bigPass();
                     lexus100.DisplayNumber();
-                    System.out.println(l);
+                    //System.out.println(l);
                     lexus100.l10n.loc();
                     SimpleCreds.printCountClassCreds();
                     lexus100.FirstTest();
@@ -188,7 +203,6 @@ public class Start {
         private int code;
         public static String DESCRIPTION;
 
-
         public Local() {
             setLocal(code, country);
         }
@@ -197,15 +211,12 @@ public class Start {
             this.code = code;
             country = ccountry;
         }
-
         public Object getCode() {
             return code;
         }
-
         public String getCountry() {
             return country;
         }
-
         void loc() {
             if ((country.equals("Russia") | country == "Ukraine") & code >= 7) {
                 System.out.println(DESCRIPTION + ": " + this.getCountry() + " (telephone code: +" + this.getCode() + ")");
@@ -222,9 +233,8 @@ public class Start {
             System.out.print(descrRu);
         }
     }
-
     public static void fullInfo (@NotNull Creds admin) {
-        admin.DisplayLogin();
+        //admin.DisplayLogin();
         admin.DisplayNumber();
         admin.passwordLenght();
         admin.ent();

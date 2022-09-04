@@ -1,8 +1,8 @@
 public abstract class Creds {
 
-        private byte number;
-       protected String login;
-       protected String password;
+    private byte number;
+    protected String login;
+    protected String password;
 
     Start.Local l10n = new Start.Local();
 
@@ -38,7 +38,7 @@ public abstract class Creds {
         this.number = (byte) nnumber;
         }
 
-    public abstract void DisplayNumber ();
+    public abstract void DisplayNumber();
     protected static void printCountClassCreds(){};
 
     protected void DisplayLogin () {
