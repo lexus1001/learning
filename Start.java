@@ -1,9 +1,9 @@
-//import java.util.Arrays;
 import Interfaces.DB;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -11,11 +11,10 @@ import java.util.Scanner;
 
 public class Start {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
 
-        long timestamp;
-        timestamp = System.currentTimeMillis();
-
+        short timestamp;
+        timestamp = (short)System.currentTimeMillis();
 
         Local ua= new Local();
         Local ru = new Local();
@@ -36,16 +35,36 @@ public class Start {
 //             API REST = new API();
 
         String[] logins = {"admin","lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
+        String[] loginsFile = new String[8];
+
+        int counter = 0;
+        String seprtr = File.separator;
+        String IFL = "o:" + seprtr + "Development" + seprtr + "InitialUsersList.txt";
+        File InitialUsersList = new File(IFL);
+        Scanner InFL = new Scanner(InitialUsersList);
+        System.out.print("\nInitial list of logins: ");
+        //while (InFL.hasNextLine()) {
+        String IFLF = InFL.nextLine();
+        //  System.out.println("\nInitial users list: " + IFLF);
+        String[] InitialLogins = IFLF.split(",",8);
+        for (String IL : InitialLogins) {
+            loginsFile[counter++] = String.valueOf(IL);
+            System.out.print(loginsFile[counter-1]);
+        }
+
+       // System.out.println(Arrays.toString(InitialLogins));
+        //}
+        InFL.close();
 
         SimpleCreds lexus100 = new SimpleCreds(2);
-        SimpleCreds Alex = new SimpleCreds(logins[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+        SimpleCreds Alex = new SimpleCreds(loginsFile[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
         SimpleCreds Diman = new SimpleCreds("Dima", 766847363,true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
-        FullCreds Nikolya = new FullCreds(20, logins[3], "333", false);
-        FullCreds Marta = new FullCreds(4, logins[4], "qwer5y67", true);
-        //FullCreds Zina = new FullCreds(6, "Zina", "5555",false);
-        Creds Zina = new SimpleCreds(7);
-        MegaFullCreds Ira = new MegaFullCreds(5, logins[6], "", false, false);
+        FullCreds Nikolya = new FullCreds(20, loginsFile[3], "333", false);
+        FullCreds Marta = new FullCreds(4, loginsFile[4], "qwer5y67", true);
+        FullCreds Zina = new FullCreds(7, "Zinna", "5555",false);
+        //Creds Zina = new SimpleCreds(7);
+        MegaFullCreds Ira = new MegaFullCreds(5, loginsFile[6], "", false, false);
         MegaFullCreds admin = new MegaFullCreds(0, "Admin", "123456789", false, true) {
 
             @Override
@@ -57,12 +76,10 @@ public class Start {
 
         lexus100.l10n.setLocal(6, "Armenia");
         Alex.l10n.setLocal(352, "Whiterussia");
-        //Zina.l10n.setLocal(7, "Russia");
         Marta.l10n.setLocal(12,"");
 
-
         byte i = 0;
-        System.out.println("All users list: ");
+        System.out.println("\nAll users list: ");
         for (String logeens : logins) {
             if (i < (logins.length - 1)) {
                 System.out.print(logins[i] + "; ");
@@ -72,22 +89,7 @@ public class Start {
             }
         }
         System.out.printf("\nFull count of users: %d", logins.length);
-
-        String seprtr = File.separator;
-        String IFL = "o:" + seprtr + "Development" + seprtr + "InitialUsersList.txt";
-        File InitialUsersList = new File(IFL);
-        Scanner InFL = new Scanner(InitialUsersList);
-        System.out.print("\nInitial list of logins: ");
-        //while (InFL.hasNextLine()) {
-            String IFLF = InFL.nextLine();
-          //  System.out.println("\nInitial users list: " + IFLF);
-        String[] InitialLogins = IFLF.split(";",4);
-//        for (String IL : InitialLogins) {
-//            Integer.parseInt(IL);
-//        }
-        System.out.println(Arrays.toString(InitialLogins));
-        //}
-        InFL.close();
+        System.out.printf("\nFull count of users in file: %d", loginsFile.length);
 
 
 //        REST.read();  //
@@ -96,7 +98,6 @@ public class Start {
 //         Interface Tool = PosgreSQL;
 
         Class l = lexus100.getClass();
-        Class ir = logins[5].getClass();
 
         String u;
         int un;
@@ -106,9 +107,9 @@ public class Start {
         try { //ToDo Разобраться с исключениями до конца.
             un = Number.nextInt();
             if (un < 0) {
-                throw new ArrayIndexOutOfBoundsException("Не может быть меньше нуля");
+                throw new NegativeArraySizeException("Не может быть меньше нуля");
             } else if (un > logins.length) {
-                throw new NegativeArraySizeException("Too big num");
+                throw new ArrayIndexOutOfBoundsException("Too big num");
             } else if (logins[un].isEmpty()) { //ToDo Если не воспроизводится условия if, то throw не выполняется.
                 throw new InputMismatchException("fdg");
             }{
@@ -131,11 +132,10 @@ public class Start {
             Scanner User = new Scanner(System.in);
             u = User.nextLine();
         }
-
 //        do
 //        { //ToDo Сделать работающий do_while
 //        continue; }
-//        while (u.equals('q'));
+   //     while (u.equals('q')) {
 
             switch (u) { //ToDo *feature* Игнорировать размер букв
                 case "admin" :
@@ -170,28 +170,31 @@ public class Start {
                 case "Zina":
                     SimpleCreds.printCountClassCreds();
                     try {
-                        //Vera.passwordLenght();
-                        if (Zina.getLogin() == null) {
-                            throw new Exception("No info about Zina");
+                        if (Zina.getNumber() == 6) {
+                            System.out.println(Zina.getLogin());
                         }
                     } catch (Exception exep2) {
-                        exep2.printStackTrace();
+                        System.out.println("No login for Zina");
                     }
-                    Zina.l10n.loc();
                     break;
                 case "Ira":
                     Ira.ent();
                     Ira.isBanned();
                     Ira.passwordLenght();
                     Ira.bigPass();
-                    System.out.println(ir);
+                   // System.out.println(ir);
                     Ira.printCountClassCreds();
                     Ira.setAdmin(false);
                     Ira.hasMail();
                     break;
-                case "Den":
-                    Denis.printCountClassCreds();
-                    fullInfo(Denis);
+                case "Denis":
+                    //String DenPath = "o:" + seprtr + "Development" + seprtr +"Credentials" + seprtr + Diman.getLogin() + ".txt";
+                    File Den = new File ("Den.txt");
+                    Scanner DenFile = new Scanner(Den);
+                    while (DenFile.hasNextLine()) {
+                        String DenStr = DenFile.nextLine();
+                        System.out.println(DenStr);
+                    }
                     break;
                 default :
                     System.out.println("No info");
