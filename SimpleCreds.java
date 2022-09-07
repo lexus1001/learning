@@ -29,19 +29,11 @@ public final class SimpleCreds extends Creds {
         } else
             out.println("First test failed.");
     }
-
     @Override
     public void DisplayNumber() {
         out.println("Number of this user equal " + this.getNumber());
     }
-
     protected static void printCountClassCreds() {
         out.printf ("Count of %s users - %d, %s", "SimpleCreds", countClassCreds, " \n");
     }
-
-//    protected String getPassword() { //ToDo This pass may be integer...
-//        int simplePass = password;
-//        return simplePass;
-//    }
-
 }

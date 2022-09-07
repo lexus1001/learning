@@ -8,14 +8,19 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Start {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) //throws IOException
+    {
 
         short timestamp;
         timestamp = (short)System.currentTimeMillis();
+        Logger MainFile = Logger.getLogger("NotAnon Loger");
 
+        int un;
         Local ua= new Local();
         Local ru = new Local();
         Local ee = new Local();
@@ -41,20 +46,27 @@ public class Start {
         String seprtr = File.separator;
         String IFL = "o:" + seprtr + "Development" + seprtr + "InitialUsersList.txt";
         File InitialUsersList = new File(IFL);
-        Scanner InFL = new Scanner(InitialUsersList);
+        try {
+
+            Scanner InFL = new Scanner(InitialUsersList);
+            String IFLF = InFL.nextLine();
+
         System.out.print("\nInitial list of logins: ");
         //while (InFL.hasNextLine()) {
-        String IFLF = InFL.nextLine();
+        //String IFLF = InFL.nextLine();
         //  System.out.println("\nInitial users list: " + IFLF);
-        String[] InitialLogins = IFLF.split(",",8);
+        String[] InitialLogins = IFLF.split(", ",8);
         for (String IL : InitialLogins) {
             loginsFile[counter++] = String.valueOf(IL);
-            System.out.print(loginsFile[counter-1]);
+            System.out.print("\t" + loginsFile[counter-1]);
+        }
+            InFL.close();
+        } catch (Exception e0) {
+            MainFile.log(Level.WARNING,"File " + InitialUsersList.getName() + " doesn't exist.");
         }
 
        // System.out.println(Arrays.toString(InitialLogins));
         //}
-        InFL.close();
 
         SimpleCreds lexus100 = new SimpleCreds(2);
         SimpleCreds Alex = new SimpleCreds(loginsFile[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
@@ -91,21 +103,16 @@ public class Start {
         System.out.printf("\nFull count of users: %d", logins.length);
         System.out.printf("\nFull count of users in file: %d", loginsFile.length);
 
-
 //        REST.read();  //
 //        REST.listen();
 //        PosgreSQL.read();
 //         Interface Tool = PosgreSQL;
 
-        Class l = lexus100.getClass();
-
         String u;
-        int un;
         System.out.println("\n\tPlease enter user number ");
         Scanner Number = new Scanner(System.in);
-
+        un = Number.nextInt();
         try { //ToDo Разобраться с исключениями до конца.
-            un = Number.nextInt();
             if (un < 0) {
                 throw new NegativeArraySizeException("Не может быть меньше нуля");
             } else if (un > logins.length) {
@@ -188,9 +195,16 @@ public class Start {
                     Ira.hasMail();
                     break;
                 case "Denis":
-                    //String DenPath = "o:" + seprtr + "Development" + seprtr +"Credentials" + seprtr + Diman.getLogin() + ".txt";
-                    File Den = new File ("Den.txt");
-                    Scanner DenFile = new Scanner(Den);
+                    String DenPath = "o:" + seprtr + "Development" + seprtr +"Credentials" + seprtr + loginsFile[un] + ".txt";
+                   // File Den = new File (loginsFile[7] + ".txt");
+                    File Den = new File(DenPath);
+                    Scanner DenFile = null;
+                    try {
+                        DenFile = new Scanner(Den);
+                    } catch (FileNotFoundException e) {
+                        //throw new RuntimeException(e);
+                        MainFile.log(Level.WARNING,"File not found!"); //ToDo Get file name or path
+                    }
                     while (DenFile.hasNextLine()) {
                         String DenStr = DenFile.nextLine();
                         System.out.println(DenStr);
@@ -209,7 +223,6 @@ public class Start {
         public Local() {
             setLocal(code, country);
         }
-
         void setLocal(int code, String ccountry) {
             this.code = code;
             country = ccountry;
@@ -231,7 +244,6 @@ public class Start {
         public final static void getDescr() {
             System.out.print(DESCRIPTION);
         }
-
         public final static void getDescr(String descrRu) {
             System.out.print(descrRu);
         }
@@ -243,7 +255,6 @@ public class Start {
         admin.ent();
         admin.bigPass();
         admin.classSelector();
-        //admin.l10n.loc();
     }
 }
 
