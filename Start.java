@@ -17,11 +17,11 @@ public class Start {
     {
 
         short timestamp;
-        timestamp = (short)System.currentTimeMillis();
+        timestamp = (short) System.currentTimeMillis();
         Logger MainFile = Logger.getLogger("NotAnon Loger");
 
         int un;
-        Local ua= new Local();
+        Local ua = new Local();
         Local ru = new Local();
         Local ee = new Local();
         ua.setLocal(331, "Ukraine");
@@ -36,10 +36,10 @@ public class Start {
         double mtt = Math.random();
         System.out.printf(time.toString() + "%.3f, %f\n", mt, mtt);
 
-             DB PosgreSQL = new DB();
+        DB PosgreSQL = new DB();
 //             API REST = new API();
 
-        String[] logins = {"admin","lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
+        String[] logins = {"admin", "lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
         String[] loginsFile = new String[8];
 
         int counter = 0;
@@ -51,44 +51,44 @@ public class Start {
             Scanner InFL = new Scanner(InitialUsersList);
             String IFLF = InFL.nextLine();
 
-        System.out.print("\nInitial list of logins: ");
-        //while (InFL.hasNextLine()) {
-        //String IFLF = InFL.nextLine();
-        //  System.out.println("\nInitial users list: " + IFLF);
-        String[] InitialLogins = IFLF.split(", ",8);
-        for (String IL : InitialLogins) {
-            loginsFile[counter++] = String.valueOf(IL);
-            System.out.print("\t" + loginsFile[counter-1]);
-        }
+            System.out.print("\nInitial list of logins: ");
+            //while (InFL.hasNextLine()) {
+            //String IFLF = InFL.nextLine();
+            //  System.out.println("\nInitial users list: " + IFLF);
+            String[] InitialLogins = IFLF.split(", ", 8);
+            for (String IL : InitialLogins) {
+                loginsFile[counter++] = String.valueOf(IL);
+                System.out.print("\t" + loginsFile[counter - 1]);
+            }
             InFL.close();
         } catch (Exception e0) {
-            MainFile.log(Level.WARNING,"File " + InitialUsersList.getName() + " doesn't exist.");
+            MainFile.log(Level.WARNING, "File " + InitialUsersList.getName() + " doesn't exist.");
         }
 
-       // System.out.println(Arrays.toString(InitialLogins));
+        // System.out.println(Arrays.toString(InitialLogins));
         //}
 
         SimpleCreds lexus100 = new SimpleCreds(2);
         SimpleCreds Alex = new SimpleCreds(loginsFile[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
-        SimpleCreds Diman = new SimpleCreds("Dima", 766847363,true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
+        SimpleCreds Diman = new SimpleCreds("Dima", 766847363, true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
         FullCreds Nikolya = new FullCreds(20, loginsFile[3], "333", false);
         FullCreds Marta = new FullCreds(4, loginsFile[4], "qwer5y67", true);
-        FullCreds Zina = new FullCreds(7, "Zinna", "5555",false);
+        FullCreds Zina = new FullCreds(7, "Zinna", "5555", false);
         //Creds Zina = new SimpleCreds(7);
         MegaFullCreds Ira = new MegaFullCreds(5, loginsFile[6], "", false, false);
         MegaFullCreds admin = new MegaFullCreds(0, "Admin", "123456789", false, true) {
 
             @Override
             public void passwordLenght() {
-                System.out.println("Odmen password lenght = " + (password.length()- getCCC()));
+                System.out.println("Odmen password lenght = " + (password.length() - getCCC()));
                 this.l10n.setLocal(0, "World");
             }
         };
 
         lexus100.l10n.setLocal(6, "Armenia");
         Alex.l10n.setLocal(352, "Whiterussia");
-        Marta.l10n.setLocal(12,"");
+        Marta.l10n.setLocal(12, "");
 
         byte i = 0;
         System.out.println("\nAll users list: ");
@@ -119,7 +119,8 @@ public class Start {
                 throw new ArrayIndexOutOfBoundsException("Too big num");
             } else if (logins[un].isEmpty()) { //ToDo Если не воспроизводится условия if, то throw не выполняется.
                 throw new InputMismatchException("fdg");
-            }{
+            }
+            {
                 System.out.println(logins[un]);
                 u = logins[un];
             }
@@ -142,10 +143,10 @@ public class Start {
 //        do
 //        { //ToDo Сделать работающий do_while
 //        continue; }
-   //     while (u.equals('q')) {
+        //while (u.equals('q')) {
 
             switch (u) { //ToDo *feature* Игнорировать размер букв
-                case "admin" :
+                case "admin":
                     admin.ent();
                     admin.passwordLenght();
                     admin.l10n.loc();
@@ -159,12 +160,12 @@ public class Start {
                     SimpleCreds.printCountClassCreds();
                     lexus100.FirstTest();
                     break;
-                case "Alex" :
+                case "Alex":
                     fullInfo(Alex);
-                   SimpleCreds.printCountClassCreds();
+                    SimpleCreds.printCountClassCreds();
                     break;
                 case "Nikolya":
-                   fullInfo(Nikolya);
+                    fullInfo(Nikolya);
                     ee.loc();
                     Nikolya.isBanned();
                     FullCreds.printCountClassCreds();
@@ -189,32 +190,32 @@ public class Start {
                     Ira.isBanned();
                     Ira.passwordLenght();
                     Ira.bigPass();
-                   // System.out.println(ir);
+                    // System.out.println(ir);
                     Ira.printCountClassCreds();
                     Ira.setAdmin(false);
                     Ira.hasMail();
                     break;
                 case "Denis":
-                    String DenPath = "o:" + seprtr + "Development" + seprtr +"Credentials" + seprtr + loginsFile[un] + ".txt";
-                   // File Den = new File (loginsFile[7] + ".txt");
+                    String DenPath = "o:" + seprtr + "Development" + seprtr + "Credentials" + seprtr + loginsFile[un] + ".txt";
+                    // File Den = new File (loginsFile[7] + ".txt");
                     File Den = new File(DenPath);
                     Scanner DenFile = null;
                     try {
                         DenFile = new Scanner(Den);
                     } catch (FileNotFoundException e) {
                         //throw new RuntimeException(e);
-                        MainFile.log(Level.WARNING,"File not found!"); //ToDo Get file name or path
+                        MainFile.log(Level.WARNING, "File not found!"); //ToDo Get file name or path
                     }
                     while (DenFile.hasNextLine()) {
                         String DenStr = DenFile.nextLine();
                         System.out.println(DenStr);
                     }
                     break;
-                default :
+                default:
                     System.out.println("No info");
                     break;
             }
-    }
+        }
     static class Local {
         private String country;
         private int code;
