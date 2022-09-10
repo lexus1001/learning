@@ -24,13 +24,7 @@ public abstract class Creds {
     }
 
     public int getNumber() {
-        try {
-            if (number < 1) {
-                throw new Exception("Number can't be zero or negative");//ToDo То же сообщение, если null. Need fix.
-            }
-        } catch (Exception exept2) {
-            exept2.printStackTrace();
-        }
+
         return number;
     }
 
@@ -62,10 +56,10 @@ public abstract class Creds {
             StringBuilder TLPass = new StringBuilder("Too long password on user ");
             TLPass.append(this.login);
             if (x > 13) {
-                throw new Exception(String.valueOf(TLPass));
+                throw new bigPassException(String.valueOf(TLPass));
             }
-        } catch (Exception exep1) {
-           // exep1.printStackTrace();
+        } catch (bigPassException exep1) {
+            exep1.printStackTrace();
         }
     }
 

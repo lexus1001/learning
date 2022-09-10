@@ -68,11 +68,11 @@ public class Start {
         // System.out.println(Arrays.toString(InitialLogins));
         //}
 
-        SimpleCreds lexus100 = new SimpleCreds(2);
-        SimpleCreds Alex = new SimpleCreds(loginsFile[2], 123458900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+        SimpleCreds lexus100 = new SimpleCreds(3);
+        SimpleCreds Alex = new SimpleCreds(loginsFile[2], 1234558900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
         SimpleCreds Diman = new SimpleCreds("Dima", 766847363, true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
-        FullCreds Nikolya = new FullCreds(20, loginsFile[3], "333", false);
+        FullCreds Nikolya = new FullCreds(20, loginsFile[3], "3338479hgnhgnrhrgn", false);
         FullCreds Marta = new FullCreds(4, loginsFile[4], "qwer5y67", true);
         FullCreds Zina = new FullCreds(7, "Zinna", "5555", false);
         //Creds Zina = new SimpleCreds(7);
@@ -158,17 +158,18 @@ public class Start {
                     //System.out.println(l);
                     lexus100.l10n.loc();
                     SimpleCreds.printCountClassCreds();
-                    lexus100.FirstTest();
                     break;
                 case "Alex":
                     fullInfo(Alex);
                     SimpleCreds.printCountClassCreds();
+                    Alex.bigPass();
                     break;
                 case "Nikolya":
                     fullInfo(Nikolya);
                     ee.loc();
                     Nikolya.isBanned();
                     FullCreds.printCountClassCreds();
+                    Nikolya.bigPass();
                     break;
                 case "Marta":
                     fullInfo(Marta);
@@ -184,6 +185,7 @@ public class Start {
                     } catch (Exception exep2) {
                         System.out.println("No login for Zina");
                     }
+                    Zina.passwordLenght();
                     break;
                 case "Ira":
                     Ira.ent();

@@ -21,17 +21,20 @@ public final class SimpleCreds extends Creds {
     }
     public SimpleCreds() {}
 
-    public void FirstTest() {
-        if (this.getNumber() == 2) {
-            out.println("Really first Test??");
-            simpleLogger.log(Level.INFO,"Tested");
-            out.println(lgrec.getLoggerName());
-        } else
-            out.println("First test failed.");
-    }
     @Override
-    public void DisplayNumber() {
-        out.println("Number of this user equal " + this.getNumber());
+    public void DisplayNumber(){
+        try {
+            if (getNumber()<2){
+                throw new NumberException("Too too small number");
+            } else if (getNumber()<5) {
+                throw new NumberException("Just too small");
+
+            } else out.println("Number of this user equal " + this.getNumber());
+        }
+        catch (NumberException e) {
+            e.printStackTrace();
+        }
+
     }
     protected static void printCountClassCreds() {
         out.printf ("Count of %s users - %d, %s", "SimpleCreds", countClassCreds, " \n");

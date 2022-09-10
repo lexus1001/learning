@@ -1,6 +1,7 @@
 public class NumberException extends Exception {
 
     public NumberException (String description) {
-        System.out.println("Number missed!");
+       super(description);
+        // System.out.println("Number missed!");
     }
 }
