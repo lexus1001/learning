@@ -39,44 +39,62 @@ public class Start {
         DB PosgreSQL = new DB();
 //             API REST = new API();
 
-        String[] logins = {"admin", "lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
-        String[] loginsFile = new String[8];
+        @Deprecated
+        String[] loginsOld = {"admin", "lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
+        String[] logins = new String[8];
+        int nmbrs = logins.length;
+        String[] passwords = new String[nmbrs];
+        String[] banned = new String[nmbrs];
 
         int counter = 0;
         String seprtr = File.separator;
-        String IFL = "o:" + seprtr + "Development" + seprtr + "InitialUsersList.txt";
-        File InitialUsersList = new File(IFL);
+        String IFL = "o:" + seprtr + "Development" + seprtr + "logins.cpd";
+        String IFP = "o:" + seprtr + "Development" + seprtr + "passwords.cpd";
+        String IFB = "o:" + seprtr + "Development" + seprtr + "banned.cpd";
+        File loginsFile = new File(IFL);
+        File passwordsFile = new File(IFP);
+        File bannedFile = new File (IFB);
         try {
 
-            Scanner InFL = new Scanner(InitialUsersList);
+            Scanner InFL = new Scanner(loginsFile);
             String IFLF = InFL.nextLine();
 
             System.out.print("\nInitial list of logins: ");
-            //while (InFL.hasNextLine()) {
-            //String IFLF = InFL.nextLine();
-            //  System.out.println("\nInitial users list: " + IFLF);
             String[] InitialLogins = IFLF.split(", ", 8);
             for (String IL : InitialLogins) {
-                loginsFile[counter++] = String.valueOf(IL);
-                System.out.print("\t" + loginsFile[counter - 1]);
+                logins[counter++] = String.valueOf(IL);
+                System.out.print("\t" + logins[counter - 1]);
             }
             InFL.close();
         } catch (Exception e0) {
-            MainFile.log(Level.WARNING, "File " + InitialUsersList.getName() + " doesn't exist.");
+            MainFile.log(Level.WARNING, "File " + loginsFile.getName() + " doesn't exist.");
         }
 
+        try {
+
+            Scanner InFP = new Scanner(passwordsFile);
+            String IFLP = InFP.nextLine();
+
+            String[] InitialPasswords = IFLP.split(", ", 8);
+            for (String IP : InitialPasswords) {
+                passwords[counter++] = String.valueOf(IP);
+            }
+            InFP.close();
+        } catch (Exception e1) {
+            MainFile.log(Level.WARNING, "File " + passwordsFile.getName() + " doesn't exist.");
+        }
         // System.out.println(Arrays.toString(InitialLogins));
         //}
 
         SimpleCreds lexus100 = new SimpleCreds(3);
-        SimpleCreds Alex = new SimpleCreds(loginsFile[2], 1234558900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+        SimpleCreds Alex = new SimpleCreds(logins[2], 1234558900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
         SimpleCreds Diman = new SimpleCreds("Dima", 766847363, true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
-        FullCreds Nikolya = new FullCreds(20, loginsFile[3], "3338479hgnhgnrhrgn", false);
-        FullCreds Marta = new FullCreds(4, loginsFile[4], "qwer5y67", true);
+        FullCreds Nikolya = new FullCreds(20, logins[3], "3338479hgnhgnrhrgn", false);
+        FullCreds Marta = new FullCreds(4, logins[4], "qwer5y67", true);
         FullCreds Zina = new FullCreds(7, "Zinna", "5555", false);
         //Creds Zina = new SimpleCreds(7);
-        MegaFullCreds Ira = new MegaFullCreds(5, loginsFile[6], "", false, false);
+        MegaFullCreds Ira = new MegaFullCreds(5, logins[6], "", false, false);
         MegaFullCreds admin = new MegaFullCreds(0, "Admin", "123456789", false, true) {
 
             @Override
@@ -90,18 +108,19 @@ public class Start {
         Alex.l10n.setLocal(352, "Whiterussia");
         Marta.l10n.setLocal(12, "");
 
+        @Deprecated
         byte i = 0;
         System.out.println("\nAll users list: ");
-        for (String logeens : logins) {
-            if (i < (logins.length - 1)) {
-                System.out.print(logins[i] + "; ");
+        for (String logeens : loginsOld) {
+            if (i < (loginsOld.length - 1)) {
+                System.out.print(loginsOld[i] + "; ");
                 i++;
             } else {
-                System.out.print(logins[i] + ". ");
+                System.out.print(loginsOld[i] + ". ");
             }
         }
-        System.out.printf("\nFull count of users: %d", logins.length);
-        System.out.printf("\nFull count of users in file: %d", loginsFile.length);
+        System.out.printf("\nFull count of users: %d", loginsOld.length);
+        System.out.printf("\nFull count of users in file: %d", logins.length);
 
 //        REST.read();  //
 //        REST.listen();
@@ -109,13 +128,15 @@ public class Start {
 //         Interface Tool = PosgreSQL;
 
         String u;
+        String p;
+        String b;
         System.out.println("\n\tPlease enter user number ");
         Scanner Number = new Scanner(System.in);
-        un = Number.nextInt();
-        try { //ToDo Разобраться с исключениями до конца.
+        un = Integer.parseInt(String.valueOf(Number.nextInt()));
+        try {
             if (un < 0) {
                 throw new NegativeArraySizeException("Не может быть меньше нуля");
-            } else if (un > logins.length) {
+            } else if (un > loginsOld.length) {
                 throw new ArrayIndexOutOfBoundsException("Too big num");
             } else if (logins[un].isEmpty()) { //ToDo Если не воспроизводится условия if, то throw не выполняется.
                 throw new InputMismatchException("fdg");
@@ -123,6 +144,11 @@ public class Start {
             {
                 System.out.println(logins[un]);
                 u = logins[un];
+                p = passwords[un];
+                b = banned[un];
+                System.out.println("User login: " + u);
+                System.out.println("Password: " + p);
+                System.out.println("Banned? " + b);
             }
         } catch (ArrayIndexOutOfBoundsException excep) {
             excep.printStackTrace();
@@ -198,7 +224,7 @@ public class Start {
                     Ira.hasMail();
                     break;
                 case "Denis":
-                    String DenPath = "o:" + seprtr + "Development" + seprtr + "Credentials" + seprtr + loginsFile[un] + ".txt";
+                    String DenPath = "o:" + seprtr + "Development" + seprtr + "Credentials" + seprtr + logins[un] + ".txt";
                     // File Den = new File (loginsFile[7] + ".txt");
                     File Den = new File(DenPath);
                     Scanner DenFile = null;
@@ -212,6 +238,7 @@ public class Start {
                         String DenStr = DenFile.nextLine();
                         System.out.println(DenStr);
                     }
+                    DenFile.close();
                     break;
                 default:
                     System.out.println("No info");
