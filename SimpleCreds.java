@@ -28,7 +28,6 @@ public final class SimpleCreds extends Creds {
                 throw new NumberException("Too too small number");
             } else if (getNumber()<5) {
                 throw new NumberException("Just too small");
-
             } else out.println("Number of this user equal " + this.getNumber());
         }
         catch (NumberException e) {

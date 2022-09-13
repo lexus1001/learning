@@ -4,7 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,10 +17,7 @@ public class Start {
     public static void main(String[] args) //throws IOException
     {
 
-        short timestamp;
-        timestamp = (short) System.currentTimeMillis();
         Logger MainFile = Logger.getLogger("NotAnon Loger");
-
         int un;
         Local ua = new Local();
         Local ru = new Local();
@@ -28,16 +26,16 @@ public class Start {
         ru.setLocal(7, "Russia");
         ee.setLocal(05, "Eesti");
         Local.DESCRIPTION = "Local";
-        StringBuilder time = new StringBuilder();
-        Local.getDescr("Местное время: ");
-        time.append(" time is ").append(timestamp).append(" and math = ").append(ee.hashCode());
 
+        SimpleDateFormat simpleDate = new SimpleDateFormat("dd-MM-yy");
+        Date now = new Date();
+
+        StringBuilder time = new StringBuilder();
+        time.append("Today is ").append(simpleDate.format(System.currentTimeMillis())).append(" and math = ").append(ee.hashCode());
         float mt = (float) Math.round(Math.pow(1.1, 16));
         double mtt = Math.random();
         System.out.printf(time.toString() + "%.3f, %f\n", mt, mtt);
-
-        DB PosgreSQL = new DB();
-//             API REST = new API();
+        System.out.println("Full time is " + now);
 
         @Deprecated
         String[] loginsOld = {"admin", "lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
@@ -121,11 +119,6 @@ public class Start {
         }
         System.out.printf("\nFull count of users: %d", loginsOld.length);
         System.out.printf("\nFull count of users in file: %d", logins.length);
-
-//        REST.read();  //
-//        REST.listen();
-//        PosgreSQL.read();
-//         Interface Tool = PosgreSQL;
 
         String u;
         String p;
@@ -263,6 +256,7 @@ public class Start {
         public String getCountry() {
             return country;
         }
+        @Deprecated
         void loc() {
             if ((country.equals("Russia") | country == "Ukraine") & code >= 7) {
                 System.out.println(DESCRIPTION + ": " + this.getCountry() + " (telephone code: +" + this.getCode() + ")");
@@ -270,12 +264,6 @@ public class Start {
                 System.out.println("Country name needed");
             } else
                 System.out.println(DESCRIPTION + " " + getCountry() + " is permitted");
-        }
-        public final static void getDescr() {
-            System.out.print(DESCRIPTION);
-        }
-        public final static void getDescr(String descrRu) {
-            System.out.print(descrRu);
         }
     }
     public static void fullInfo (@NotNull Creds admin) {
