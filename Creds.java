@@ -63,15 +63,4 @@ public abstract class Creds {
         }
     }
 
-    public void classSelector () { //ToDo Make class selector function for passwords.
-
-        String a;
-        a = String.valueOf(this.password.getClass());
-
-        if (a.equals("class java.lang.String")) {
-            System.out.println(a);
-        } else
-        System.out.println("Fuck.. " + a);
-    }
-
     }

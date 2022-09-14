@@ -1,9 +1,7 @@
 import Interfaces.DB;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Arrays;
@@ -50,13 +48,12 @@ public class Start {
         String IFP = "o:" + seprtr + "Development" + seprtr + "passwords.cpd";
         String IFB = "o:" + seprtr + "Development" + seprtr + "banned.cpd";
         File loginsFile = new File(IFL);
-        File passwordsFile = new File(IFP);
+       // File passwordsFile = new File(IFP);
         File bannedFile = new File (IFB);
-        try {
 
+        try {
             Scanner InFL = new Scanner(loginsFile);
             String IFLF = InFL.nextLine();
-
             System.out.print("\nInitial list of logins: ");
             String[] InitialLogins = IFLF.split(", ", 8);
             for (String IL : InitialLogins) {
@@ -67,13 +64,13 @@ public class Start {
         } catch (Exception e0) {
             MainFile.log(Level.WARNING, "File " + loginsFile.getName() + " doesn't exist.");
         }
+        File passwordsFile = new File(IFP);
 
-        try {
-
+        try
+        {
             Scanner InFP = new Scanner(passwordsFile);
             String IFLP = InFP.nextLine();
-
-            String[] InitialPasswords = IFLP.split(", ", 8);
+            String[] InitialPasswords = IFLP.split(", ");
             for (String IP : InitialPasswords) {
                 passwords[counter++] = String.valueOf(IP);
             }
@@ -83,6 +80,7 @@ public class Start {
         }
         // System.out.println(Arrays.toString(InitialLogins));
         //}
+
 
         SimpleCreds lexus100 = new SimpleCreds(3);
         SimpleCreds Alex = new SimpleCreds(logins[2], 1234558900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
@@ -119,13 +117,23 @@ public class Start {
         }
         System.out.printf("\nFull count of users: %d", loginsOld.length);
         System.out.printf("\nFull count of users in file: %d", logins.length);
-
+        System.out.println("\nAll passwords here: ");
+        try {
+            FileReader FR = new FileReader(IFP);
+            BufferedReader BF = new BufferedReader(FR);
+            while (BF.ready()) {
+                System.out.println(BF.readLine());
+            }
+            }catch(IOException e){
+            throw new RuntimeException(e);
+        }
+        
         String u;
         String p;
         String b;
         System.out.println("\n\tPlease enter user number ");
-        Scanner Number = new Scanner(System.in);
-        un = Integer.parseInt(String.valueOf(Number.nextInt()));
+        Scanner enterNumber = new Scanner(System.in);
+        un = Integer.parseInt(String.valueOf(enterNumber.nextInt()));
         try {
             if (un < 0) {
                 throw new NegativeArraySizeException("Не может быть меньше нуля");
@@ -135,7 +143,6 @@ public class Start {
                 throw new InputMismatchException("fdg");
             }
             {
-                System.out.println(logins[un]);
                 u = logins[un];
                 p = passwords[un];
                 b = banned[un];
@@ -157,7 +164,7 @@ public class Start {
             //exep_arr_i.printStackTrace();
             System.out.println("Некорректно введён номер, укажите имя пользователя");
             Scanner User = new Scanner(System.in);
-            u = User.nextLine();
+            u= User.nextLine();
         }
 //        do
 //        { //ToDo Сделать работающий do_while
@@ -172,6 +179,7 @@ public class Start {
                     admin.setAdmin(true);
                     break;
                 case "lexus100":
+                    System.out.println(u);
                     lexus100.bigPass();
                     lexus100.DisplayNumber();
                     //System.out.println(l);
@@ -179,6 +187,7 @@ public class Start {
                     SimpleCreds.printCountClassCreds();
                     break;
                 case "Alex":
+                    System.out.println(u.length());
                     fullInfo(Alex);
                     SimpleCreds.printCountClassCreds();
                     Alex.bigPass();
@@ -267,14 +276,12 @@ public class Start {
         }
     }
     public static void fullInfo (@NotNull Creds admin) {
-        //admin.DisplayLogin();
         admin.DisplayNumber();
         admin.passwordLenght();
         admin.ent();
         admin.bigPass();
-        admin.classSelector();
     }
-}
+    }
 
 
 
