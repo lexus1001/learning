@@ -1,63 +1,42 @@
 import static java.lang.System.*;
-public class SimpleCreds extends Creds {
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.LogRecord;
+public final class SimpleCreds extends Creds {
 
     private static int countClassCreds;
-
+    long password;
+    Logger simpleLogger = Logger.getLogger("Positive");
+    LogRecord lgrec = new LogRecord(Level.ALL,"Wrote");
 
     public SimpleCreds(int number) {
         setNumber(number);
         countClassCreds++;
     }
-
-    public SimpleCreds(String login, int pwd, boolean thisIsSimpleCreds) {
+    public SimpleCreds(String login, long pwd, boolean thisIsSimpleCreds) {
         setLogin(login);
         setPassword(String.valueOf(pwd));
         countClassCreds++;
     }
-
-    public SimpleCreds() {
-    }
-
-    ;
-
-    public void FirstTest() {
-        if (this.getNumber() == 2) {
-            System.out.println("Really first Test??");
-        } else
-            out.println("First test failed.");
-    }
+    public SimpleCreds() {}
 
     @Override
-    public void DisplayNumber() {
-        System.out.println("Number of this user equal " + this.getNumber());
-    }
-
-    @Override
-    protected void printCountClassCreds() {
-        System.out.println("Count of SimpleCreds users - " + countClassCreds);
-    }
-
-    @Override
-    public String getPassword() {
-        String simplePass = super.getPassword();
-        return "Pass: " + simplePass;
-    }
-
-    void isSimpleCreds() {
-        System.out.println("This is SimpleCreds");
-    }
-
-    public void bigPass() { //ToDo *fix* Доработать функцию перевода пароля из int  в String
+    public void DisplayNumber(){
         try {
-            int x = String.valueOf(this.getPassword()).length();
-            StringBuilder TLPass = new StringBuilder("Too long password on user ");
-            TLPass.append(this.login);
-            if (x > 11) {
-                throw new Exception(String.valueOf(TLPass));
-            }
-        } catch (Exception exep1) {
-            exep1.printStackTrace();
+            if (getNumber()<2){
+                throw new NumberException("Too too small number");
+            } else if (getNumber()<5) {
+                throw new NumberException("Just too small");
 
+            } else out.println("Number of this user equal " + this.getNumber());
         }
+        catch (NumberException e) {
+            e.printStackTrace();
+        }
+
+    }
+    protected static void printCountClassCreds() {
+        out.printf ("Count of %s users - %d, %s", "SimpleCreds", countClassCreds, " \n");
     }
 }

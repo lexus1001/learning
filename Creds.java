@@ -1,15 +1,17 @@
 public abstract class Creds {
 
-        private int number;
-       protected String login;
-       protected String password;
+    private byte number;
+    protected String login;
+    protected String password;
+
+    Start.Local l10n = new Start.Local();
 
     public Creds () {}
 
-    public String getLogin() {
+    public String getLogin() { //ToDo Почему 2 раза логин????// Fixed(?)
         return login;
     }
-    public void setLogin(String login) {
+    public final void setLogin(String login) {
         this.login = login;
     }
 
@@ -21,19 +23,20 @@ public abstract class Creds {
         this.password = password;
     }
 
-    public int getNumber(){
+    public int getNumber() {
+
         return number;
     }
 
     public void setNumber(int nnumber) {
-        this.number = nnumber;
+        this.number = (byte) nnumber;
+        }
 
-    }
-    public abstract void DisplayNumber ();
-    protected abstract void printCountClassCreds();
+    public abstract void DisplayNumber();
+    protected static void printCountClassCreds(){};
 
     protected void DisplayLogin () {
-        System.out.println(this.getLogin());
+        System.out.println(this.login);
     }
 
     public void passwordLenght () {
@@ -41,7 +44,11 @@ public abstract class Creds {
     }
 
     void ent() {
-        System.out.println("User #" + this.getNumber() + ", " + this.getLogin() + "; pass: " + getPassword());
+        if (login!="Admin") { //ToDo Возможно реализовать через isAdmin
+            System.out.println("User #" + this.getNumber() + ", " + this.getLogin() + "; pass: " + getPassword());
+        }
+        else
+            System.out.println("Admin, pass: " + getPassword().hashCode());
     }
     public void bigPass() {
         try {
@@ -49,11 +56,22 @@ public abstract class Creds {
             StringBuilder TLPass = new StringBuilder("Too long password on user ");
             TLPass.append(this.login);
             if (x > 13) {
-                throw new Exception(String.valueOf(TLPass));
+                throw new bigPassException(String.valueOf(TLPass));
             }
-        } catch (Exception exep1) {
+        } catch (bigPassException exep1) {
             exep1.printStackTrace();
-            //System.out.println(exep1.getMessage());
         }
     }
-}
+
+    public void classSelector () { //ToDo Make class selector function for passwords.
+
+        String a;
+        a = String.valueOf(this.password.getClass());
+
+        if (a.equals("class java.lang.String")) {
+            System.out.println(a);
+        } else
+        System.out.println("Fuck.. " + a);
+    }
+
+    }
