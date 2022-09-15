@@ -1,10 +1,8 @@
-import Interfaces.DB;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -39,7 +37,7 @@ public class Start {
         String[] loginsOld = {"admin", "lexus100", "Alex", "Nikolya", "Marta", "Zina", "Ira", "Denis"};
         String[] logins = new String[8];
         int nmbrs = logins.length;
-        String[] passwords = new String[nmbrs];
+        String[] passwords = new String[8];
         String[] banned = new String[nmbrs];
 
         int counter = 0;
@@ -48,7 +46,7 @@ public class Start {
         String IFP = "o:" + seprtr + "Development" + seprtr + "passwords.cpd";
         String IFB = "o:" + seprtr + "Development" + seprtr + "banned.cpd";
         File loginsFile = new File(IFL);
-       // File passwordsFile = new File(IFP);
+        File passwordsFile = new File(IFP);
         File bannedFile = new File (IFB);
 
         try {
@@ -64,31 +62,39 @@ public class Start {
         } catch (Exception e0) {
             MainFile.log(Level.WARNING, "File " + loginsFile.getName() + " doesn't exist.");
         }
-        File passwordsFile = new File(IFP);
 
-        try
-        {
-            Scanner InFP = new Scanner(passwordsFile);
-            String IFLP = InFP.nextLine();
-            String[] InitialPasswords = IFLP.split(", ");
-            for (String IP : InitialPasswords) {
-                passwords[counter++] = String.valueOf(IP);
-            }
-            InFP.close();
-        } catch (Exception e1) {
-            MainFile.log(Level.WARNING, "File " + passwordsFile.getName() + " doesn't exist.");
+        try {
+            FileReader FR = new FileReader(IFP);
+            BufferedReader BF = new BufferedReader(FR);
+            while (BF.ready()) {
+                String[] InitialPasswords = BF.readLine().split(", ");
+//                for (String IP : InitialPasswords) {
+//                    passwords[counter++] = String.valueOf(IP);  //ToDo Сделать цикл for each
+//                }
+                passwords[0] = String.valueOf(InitialPasswords[0]);
+                passwords[1] = String.valueOf(InitialPasswords[1]);
+                passwords[2] = String.valueOf(InitialPasswords[2]);
+                passwords[3] = String.valueOf(InitialPasswords[3]);
+                passwords[4] = String.valueOf(InitialPasswords[4]);
+
+            };
+        }catch(IOException e){
+            throw new RuntimeException(e);
         }
+
+
+
         // System.out.println(Arrays.toString(InitialLogins));
         //}
 
 
         SimpleCreds lexus100 = new SimpleCreds(3);
-        SimpleCreds Alex = new SimpleCreds(logins[2], 1234558900, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
+        SimpleCreds Alex = new SimpleCreds(logins[2], 544564564, true); //ToDo *Bug* Exeptoin >13 doesn't work on SimpleCreds users
         SimpleCreds Diman = new SimpleCreds("Dima", 766847363, true); //ToDo *Bug* Выяснить почему если поставить лонг, то ошибка, хотя нигде не int
         FullCreds Denis = new FullCreds();
         FullCreds Nikolya = new FullCreds(20, logins[3], "3338479hgnhgnrhrgn", false);
-        FullCreds Marta = new FullCreds(4, logins[4], "qwer5y67", true);
-        FullCreds Zina = new FullCreds(7, "Zinna", "5555", false);
+        FullCreds Marta = new FullCreds(4, logins[4], passwords[4], true);
+        FullCreds Zina = new FullCreds(7, "Zinna", passwords[5], false);
         //Creds Zina = new SimpleCreds(7);
         MegaFullCreds Ira = new MegaFullCreds(5, logins[6], "", false, false);
         MegaFullCreds admin = new MegaFullCreds(0, "Admin", "123456789", false, true) {
@@ -117,16 +123,6 @@ public class Start {
         }
         System.out.printf("\nFull count of users: %d", loginsOld.length);
         System.out.printf("\nFull count of users in file: %d", logins.length);
-        System.out.println("\nAll passwords here: ");
-        try {
-            FileReader FR = new FileReader(IFP);
-            BufferedReader BF = new BufferedReader(FR);
-            while (BF.ready()) {
-                System.out.println(BF.readLine());
-            }
-            }catch(IOException e){
-            throw new RuntimeException(e);
-        }
 
         String u;
         String p;
@@ -166,10 +162,6 @@ public class Start {
             Scanner User = new Scanner(System.in);
             u= User.nextLine();
         }
-//        do
-//        { //ToDo Сделать работающий do_while
-//        continue; }
-        //while (u.equals('q')) {
 
             switch (u) { //ToDo *feature* Игнорировать размер букв
                 case "admin":
